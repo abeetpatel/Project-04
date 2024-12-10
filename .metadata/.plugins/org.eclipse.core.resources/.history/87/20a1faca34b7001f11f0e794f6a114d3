@@ -1,0 +1,53 @@
+package in.co.rays.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import in.co.rays.bean.RoleBean;
+import in.co.rays.util.JDBCDataSource;
+
+public class RoleModel {
+
+	public int nextPk() throws Exception {
+
+		int pk = 0;
+
+		Connection conn = JDBCDataSource.getConnection();
+
+		PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_role");
+
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+
+			pk = rs.getInt(1);
+
+		}
+
+		return pk + 1;
+
+	}
+
+	public void add(RoleBean bean) throws Exception {
+
+		Connection conn = JDBCDataSource.getConnection();
+
+		PreparedStatement pstmt = conn.prepareStatement("insert into st_role values(?,?,?,?,?,?,?)");
+
+		pstmt.setLong(1, nextPk());
+		pstmt.setString(2, bean.getName());
+		pstmt.setString(3, bean.getDescription());
+		pstmt.setString(4, bean.getCreatedBy());
+		pstmt.setString(5, bean.getModifiedBy());
+		pstmt.setTimestamp(6, bean.getCreatedDatetime());
+		pstmt.setTimestamp(7, bean.getModifiedDatetime());
+
+		int i = pstmt.executeUpdate();
+
+		JDBCDataSource.closeConnection(conn);
+
+		System.out.println("data added successfully => " + i);
+
+	}
+
+}

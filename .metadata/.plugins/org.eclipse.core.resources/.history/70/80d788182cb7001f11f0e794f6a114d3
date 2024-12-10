@@ -1,0 +1,17 @@
+package in.co.rays.util;
+
+import java.util.ResourceBundle;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+public final class JDBCDataSource {
+
+	private static JDBCDataSource jds = null;
+	private ComboPooledDataSource cpds = null;
+	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.bundle.system");
+
+	private JDBCDataSource() {
+
+	}
+
+}

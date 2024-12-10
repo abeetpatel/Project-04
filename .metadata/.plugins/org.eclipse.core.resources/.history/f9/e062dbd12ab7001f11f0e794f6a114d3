@@ -1,0 +1,6 @@
+package in.co.rays.util;
+
+//step:1 make class final
+public final class JDBCDataSource {
+
+}
