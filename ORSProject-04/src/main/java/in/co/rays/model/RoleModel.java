@@ -1,12 +1,10 @@
 package in.co.rays.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 import in.co.rays.bean.RoleBean;
 import in.co.rays.util.JDBCDataSource;
 
@@ -24,7 +22,7 @@ public class RoleModel {
 
 		while (rs.next()) {
 
-			pk = rs.getInt(1);
+			pk = rs.getLong(1);
 
 		}
 
@@ -93,7 +91,7 @@ public class RoleModel {
 
 	}
 
-	public RoleBean finedById(long id) throws Exception {
+	public RoleBean finedByPk(long id) throws Exception {
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -119,11 +117,13 @@ public class RoleModel {
 
 		}
 
+		JDBCDataSource.closeConnection(conn);
+
 		return bean;
 
 	}
 
-	public List search(RoleBean bean) throws Exception {
+	public List search(RoleBean bean,int pageNo,int pageSize) throws Exception {
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -152,20 +152,27 @@ public class RoleModel {
 
 			}
 			if (bean.getCreatedDatetime() != null && bean.getCreatedDatetime().getTime() > 0) {
-				
-				Date d = new Date(bean.getCreatedDatetime().getTime());
 
-				sql.append(" and created_datetime like '" + d + "%'");
+				String[] arr = bean.getCreatedDatetime().toString().split("\\.");
+
+				sql.append(" and created_datetime like '" + arr[0] + "%'");
+			}
+			if (bean.getModifiedDatetime() != null && bean.getModifiedDatetime().getTime() > 0) {
+
+				String[] arr = bean.getModifiedDatetime().toString().split("\\.");
+
+				sql.append(" and modified_datetime like '" + arr[0] + "%'");
 
 			}
-			if(bean.getModifiedDatetime() != null && bean.getModifiedDatetime().getTime() > 0) {
-				
-				Date d = new Date(bean.getModifiedDatetime().getTime());
-				
-				sql.append(" and modified_by like '" + d + "%'");
-				
-			}
 
+		}
+		
+		if(pageSize > 0) {
+			
+			pageNo = (pageNo - 1) * pageSize;
+			
+			sql.append(" limit "+pageNo+","+pageSize);
+			
 		}
 
 		System.out.println("sql  =>  " + sql.toString());
@@ -188,6 +195,8 @@ public class RoleModel {
 			list.add(bean);
 
 		}
+		
+		JDBCDataSource.closeConnection(conn);
 
 		return list;
 
