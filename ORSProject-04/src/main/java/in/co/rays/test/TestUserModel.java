@@ -12,11 +12,11 @@ public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		// testAdd();
+		 testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFinedByPk();
-		testFinedByLogin();
+		// testFinedByLogin();
 		// testSearch();
 
 	}
@@ -183,9 +183,9 @@ public class TestUserModel {
 		UserModel model = new UserModel();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		bean.setFirstName("abeet");
+		bean.setFirstName("ram");
 		bean.setLastName("patel");
-		bean.setLogin("demo@gmail.com");
+		bean.setLogin("demo4@gmail.com");
 		bean.setPassword("demo123");
 		bean.setDob(sdf.parse("2000-01-01"));
 		bean.setMobileNo("6515485248");

@@ -66,7 +66,7 @@ public class UserModel {
 
 		JDBCDataSource.closeConnection(conn);
 
-		System.out.println("data added successfully => " + i);
+		System.out.println("data added successfully => " + i); 
 
 	}
 
