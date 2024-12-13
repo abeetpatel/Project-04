@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import in.co.rays.bean.UserBean;
@@ -35,6 +36,14 @@ public class UserModel {
 
 	public void add(UserBean bean) throws Exception {
 
+		UserBean existbean = finedByLogin(bean.getLogin());
+
+		if (existbean != null) {
+
+			throw new Exception("User Already Exists..");
+
+		}
+
 		Connection conn = JDBCDataSource.getConnection();
 
 		PreparedStatement pstmt = conn.prepareStatement("insert into st_user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -62,6 +71,14 @@ public class UserModel {
 	}
 
 	public void update(UserBean bean) throws Exception {
+
+		UserBean existbean = finedByLogin(bean.getLogin());
+
+		if (existbean != null && bean.getId() != existbean.getId()) {
+
+			throw new Exception("User Already Exists..");
+
+		}
 
 		Connection conn = JDBCDataSource.getConnection();
 
@@ -113,6 +130,44 @@ public class UserModel {
 		PreparedStatement pstmt = conn.prepareStatement("select * from st_user where id = ?");
 
 		pstmt.setLong(1, id);
+
+		ResultSet rs = pstmt.executeQuery();
+
+		UserBean bean = null;
+
+		while (rs.next()) {
+
+			bean = new UserBean();
+
+			bean.setId(rs.getLong(1));
+			bean.setFirstName(rs.getString(2));
+			bean.setLastName(rs.getString(3));
+			bean.setLogin(rs.getString(4));
+			bean.setPassword(rs.getString(5));
+			bean.setDob(new java.sql.Date(rs.getDate(6).getTime()));
+			bean.setMobileNo(rs.getString(7));
+			bean.setRoleId(rs.getLong(8));
+			bean.setGender(rs.getString(9));
+			bean.setCreatedBy(rs.getString(10));
+			bean.setModifiedBy(rs.getString(11));
+			bean.setCreatedDatetime(rs.getTimestamp(12));
+			bean.setModifiedDatetime(rs.getTimestamp(13));
+
+		}
+
+		JDBCDataSource.closeConnection(conn);
+
+		return bean;
+
+	}
+
+	public UserBean finedByLogin(String login) throws Exception {
+
+		Connection conn = JDBCDataSource.getConnection();
+
+		PreparedStatement pstmt = conn.prepareStatement("select * from st_user where login = ?");
+
+		pstmt.setString(1, login);
 
 		ResultSet rs = pstmt.executeQuery();
 

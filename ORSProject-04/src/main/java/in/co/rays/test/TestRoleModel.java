@@ -18,7 +18,8 @@ public class TestRoleModel {
 		// testUpdate();
 		// testDelete();
 		// testFinedByPk();
-		testSearch();
+		testFinedByName();
+		// testSearch();
 
 	}
 
@@ -29,10 +30,10 @@ public class TestRoleModel {
 		int pageNo = 1;
 		int pageSize = 5;
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //2024-12-11 01:32:55
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 2024-12-11 01:32:55
 		Date d = sdf.parse("2024-12-11 01:32:55");
 		Timestamp ts = new Timestamp(d.getTime());
-		
+
 		System.out.println(ts);
 
 		// bean.setName("sales");
@@ -40,9 +41,9 @@ public class TestRoleModel {
 		// bean.setCreatedBy("admin@gmail.com");
 		// bean.setModifiedBy("admin@gmail.com");
 		// bean.setCreatedDatetime(ts);
-		 bean.setModifiedDatetime(ts);
+		bean.setModifiedDatetime(ts);
 
-		List list = model.search(bean,pageNo,pageSize);
+		List list = model.search(bean, pageNo, pageSize);
 
 		Iterator it = list.iterator();
 
@@ -62,13 +63,41 @@ public class TestRoleModel {
 
 	}
 
-	private static void testFinedByPk() throws Exception {
-
-		int id = 1;
+	private static void testFinedByName() throws Exception {
+		
+		String name = "student";
 
 		RoleBean bean = new RoleBean();
 
-	RoleModel model = new RoleModel();
+		RoleModel model = new RoleModel();
+
+		bean = model.finedByName(name);
+
+		if (bean != null) {
+
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+
+		} else {
+
+			System.out.println("user not found...");
+
+		}
+
+	}
+
+	private static void testFinedByPk() throws Exception {
+
+		int id = 5;
+
+		RoleBean bean = new RoleBean();
+
+		RoleModel model = new RoleModel();
 
 		bean = model.finedByPk(id);
 
