@@ -1,6 +1,7 @@
 package in.co.rays.test;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -26,9 +27,18 @@ public class TestSubjectModel {
 
 		SubjectBean bean = new SubjectBean();
 		SubjectModel model = new SubjectModel();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int pageNo = 1;
 		int pageSize = 5;
 		List list = new ArrayList();
+
+		// bean.setName("collection");
+		// bean.setDescription("collection");
+		// bean.setCreatedBy("admin");
+		// bean.setModifiedBy("admin");
+		// bean.setCreatedDatetime(new Timestamp(sdf.parse("2024-12-14
+		// 14:58:47").getTime()));
+		bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-14 15:00:48").getTime()));
 
 		list = model.search(bean, pageNo, pageSize);
 
