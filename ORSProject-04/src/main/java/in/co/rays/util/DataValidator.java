@@ -1,6 +1,7 @@
 package in.co.rays.util;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class DataValidator {
 
@@ -141,7 +142,7 @@ public class DataValidator {
 
 	public static boolean isDate(String val) {
 
-		java.util.Date d = null;
+		Date d = null;
 		if (isNotNull(val)) {
 			d = DataUtility.getDate(val);
 		}
@@ -217,13 +218,13 @@ public class DataValidator {
 
 		// Test isDate
 		System.out.println("\nisDate Test:");
-		System.out.println("Valid Date: '10/15/2024' -> " + isDate("10/15/2024"));
-		System.out.println("Invalid Date: '2024-10-15' -> " + isDate("2024-10-15"));
+		System.out.println("Valid Date: '10/15/2024' -> " + isDate("11-11-2024"));
+		System.out.println("Invalid Date: '2024-10-15' -> " + isDate("2024/10/15"));
 
 		// Test isSunday
 		System.out.println("\nisSunday Test:");
-		System.out.println("Date on Sunday: '10/13/2024' -> " + isSunday("10/13/2024"));
-		System.out.println("Date not on Sunday: '10/15/2024' -> " + isSunday("10/15/2024"));
+		System.out.println("Date on Sunday: '10/13/2024' -> " + isSunday("11-11-2024"));
+		System.out.println("Date not on Sunday: '10/15/2024' -> " + isSunday("15-12-2024"));
 	}
 
 }

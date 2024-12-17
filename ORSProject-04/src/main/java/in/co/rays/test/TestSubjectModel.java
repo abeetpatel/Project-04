@@ -19,7 +19,7 @@ public class TestSubjectModel {
 		// testDelete();
 		// testFinedByPk();
 		// testFinedByName();
-		testSearch();
+		 testSearch();
 
 	}
 
@@ -29,7 +29,7 @@ public class TestSubjectModel {
 		SubjectModel model = new SubjectModel();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 		List list = new ArrayList();
 
 		// bean.setName("collection");
@@ -38,7 +38,7 @@ public class TestSubjectModel {
 		// bean.setModifiedBy("admin");
 		// bean.setCreatedDatetime(new Timestamp(sdf.parse("2024-12-14
 		// 14:58:47").getTime()));
-		bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-14 15:00:48").getTime()));
+		// bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-14 15:00:48").getTime()));
 
 		list = model.search(bean, pageNo, pageSize);
 
@@ -70,6 +70,7 @@ public class TestSubjectModel {
 
 		bean = model.finedByName(name);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getCourseId());
@@ -79,6 +80,11 @@ public class TestSubjectModel {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 
@@ -90,6 +96,7 @@ public class TestSubjectModel {
 
 		bean = model.finedByPk(id);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getCourseId());
@@ -99,12 +106,17 @@ public class TestSubjectModel {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 
 	private static void testDelete() throws Exception {
 
-		long id = 3;
+		long id = 13;
 
 		SubjectModel model = new SubjectModel();
 
@@ -117,7 +129,7 @@ public class TestSubjectModel {
 		SubjectBean bean = new SubjectBean();
 		SubjectModel model = new SubjectModel();
 
-		bean.setId(2);
+		bean.setId(13);
 		bean.setName("OOP");
 		bean.setCourseId(1);
 		bean.setDescription("OOP");

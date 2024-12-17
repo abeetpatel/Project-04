@@ -28,7 +28,7 @@ public class TestMarksheet {
 		MarksheetModel model = new MarksheetModel();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 
 		// bean.setRollNo("A105");
 		// bean.setCreatedBy("admin");
@@ -68,6 +68,7 @@ public class TestMarksheet {
 
 		bean = model.finedByRollNo("A105");
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getRollNo());
 		System.out.println(bean.getStudentId());
@@ -79,6 +80,11 @@ public class TestMarksheet {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 
@@ -89,6 +95,7 @@ public class TestMarksheet {
 
 		bean = model.finedByPk(2);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getRollNo());
 		System.out.println(bean.getStudentId());
@@ -100,6 +107,11 @@ public class TestMarksheet {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 

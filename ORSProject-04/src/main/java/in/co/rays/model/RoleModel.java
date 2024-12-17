@@ -338,6 +338,8 @@ public class RoleModel {
 
 			while (rs.next()) {
 
+				bean = new RoleBean();
+
 				bean.setId(rs.getLong(1));
 				bean.setName(rs.getString(2));
 				bean.setDescription(rs.getString(3));

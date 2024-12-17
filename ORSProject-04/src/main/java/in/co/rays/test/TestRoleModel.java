@@ -2,12 +2,14 @@ package in.co.rays.test;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import in.co.rays.bean.RoleBean;
+import in.co.rays.exception.ApplicationException;
 import in.co.rays.model.RoleModel;
 
 public class TestRoleModel {
@@ -18,8 +20,8 @@ public class TestRoleModel {
 		// testUpdate();
 		// testDelete();
 		// testFinedByPk();
-		testFinedByName();
-		// testSearch();
+		// testFinedByName();
+		 testSearch();
 
 	}
 
@@ -36,12 +38,12 @@ public class TestRoleModel {
 
 		System.out.println(ts);
 
-		// bean.setName("sales");
-		// bean.setDescription("manager");
+		// bean.setName("admin");
+		// bean.setDescription("faculty");
 		// bean.setCreatedBy("admin@gmail.com");
 		// bean.setModifiedBy("admin@gmail.com");
 		// bean.setCreatedDatetime(ts);
-		bean.setModifiedDatetime(ts);
+		// bean.setModifiedDatetime(ts);
 
 		List list = model.search(bean, pageNo, pageSize);
 
@@ -93,7 +95,7 @@ public class TestRoleModel {
 
 	private static void testFinedByPk() throws Exception {
 
-		int id = 5;
+		int id = 1;
 
 		RoleBean bean = new RoleBean();
 
@@ -120,7 +122,7 @@ public class TestRoleModel {
 
 	private static void testDelete() throws Exception {
 
-		int id = 2;
+		int id = 5;
 
 		RoleModel model = new RoleModel();
 
@@ -138,7 +140,7 @@ public class TestRoleModel {
 		bean.setModifiedBy("admin2@gmail.com");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		bean.setId(2);
+		bean.setId(5);
 
 		RoleModel model = new RoleModel();
 

@@ -12,12 +12,12 @@ public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		 testAdd();
+		// testAdd();
 		// testUpdate();
 		// testDelete();
 		// testFinedByPk();
 		// testFinedByLogin();
-		// testSearch();
+		 testSearch();
 
 	}
 
@@ -34,20 +34,20 @@ public class TestUserModel {
 		System.out.println(ts);
 
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 
-		// bean.setFirstName("abeet");
-		// bean.setLastName("patel");
-		// bean.setLogin("demo@gmail.com");
-		// bean.setPassword("demo123");
-		// bean.setDob(sdf.parse("2000-01-01"));
+		// bean.setFirstName("Ritu");
+		// bean.setLastName("Gupta");
+		// bean.setLogin("rahulchaudhary@gmail.com");
+		// bean.setPassword("password123");
+		 bean.setDob(sdf.parse("2000-01-01"));
 		// bean.setMobileNo("6515485248");
 		// bean.setRoleId(12);
 		// bean.setGender("male");
 		// bean.setCreatedBy("admin");
 		// bean.setModifiedBy("admin");
 		// bean.setCreatedDatetime(ts);
-		bean.setModifiedDatetime(ts);
+		// bean.setModifiedDatetime(ts);
 
 		List list = model.search(bean, pageNo, pageSize);
 
@@ -77,7 +77,7 @@ public class TestUserModel {
 
 	private static void testFinedByLogin() throws Exception {
 
-		String login = "demo1@gmail.com";
+		String login = "priyagupta@gmail.com";
 
 		UserModel model = new UserModel();
 
@@ -145,7 +145,7 @@ public class TestUserModel {
 
 	private static void testDelete() throws Exception {
 
-		int id = 2;
+		int id = 13;
 
 		UserModel model = new UserModel();
 
@@ -171,7 +171,7 @@ public class TestUserModel {
 		bean.setModifiedBy("admin1");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		bean.setId(1);
+		bean.setId(13);
 
 		model.update(bean);
 

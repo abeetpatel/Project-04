@@ -28,7 +28,7 @@ public class TestCourseModel {
 		CourseBean bean = new CourseBean();
 		CourseModel model = new CourseModel();
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		// bean.setName("java");
@@ -37,7 +37,7 @@ public class TestCourseModel {
 		// bean.setCreatedBy("admin");
 		// bean.setModifiedBy("admin");
 		// bean.setCreatedDatetime(new Timestamp(sdf.parse(" 2024-12-13 01:04:22").getTime()));
-		bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-13 01:04:22").getTime()));
+		// bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-13 01:04:22").getTime()));
 		
 		List list = new ArrayList();
 
@@ -72,6 +72,7 @@ public class TestCourseModel {
 
 		bean = model.finedByName(name);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getDuration());
@@ -80,6 +81,11 @@ public class TestCourseModel {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 
@@ -93,6 +99,7 @@ public class TestCourseModel {
 
 		bean = model.finedByPk(id);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getDuration());
@@ -101,6 +108,11 @@ public class TestCourseModel {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else {
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 

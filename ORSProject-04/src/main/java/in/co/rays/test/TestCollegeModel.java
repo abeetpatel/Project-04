@@ -28,7 +28,7 @@ public class TestCollegeModel {
 		CollegeBean bean = new CollegeBean();
 		CollegeModel model = new CollegeModel();
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -41,7 +41,7 @@ public class TestCollegeModel {
 		// bean.setModifiedBy("admin");
 		// bean.setCreatedDatetime(new Timestamp(sdf.parse("2024-12-12
 		// 20:40:02").getTime()));
-		bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-12 20:40:02").getTime()));
+		// bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-12 20:40:02").getTime()));
 
 		List list = new ArrayList();
 

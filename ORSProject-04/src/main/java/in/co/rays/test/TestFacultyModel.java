@@ -38,10 +38,10 @@ public class TestFacultyModel {
 		// bean.setModifiedBy("admin");
 		// bean.setCreatedDatetime(new Timestamp(sdf.parse("2024-12-15
 		// 01:05:59").getTime()));
-		bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-15 01:10:22").getTime()));
+		// bean.setModifiedDatetime(new Timestamp(sdf.parse("2024-12-15 01:10:22").getTime()));
 
 		int pageNo = 1;
-		int pageSize = 5;
+		int pageSize = 12;
 		List list = new ArrayList();
 		list = model.search(bean, pageNo, pageSize);
 		Iterator it = list.iterator();
@@ -79,6 +79,7 @@ public class TestFacultyModel {
 		long id = 2;
 		bean = model.finedByPk(id);
 
+		if(bean != null) {
 		System.out.println(bean.getId());
 		System.out.println(bean.getFirstName());
 		System.out.println(bean.getLastName());
@@ -96,6 +97,11 @@ public class TestFacultyModel {
 		System.out.println(bean.getModifiedBy());
 		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
+		}else{
+			
+			System.out.println("user not found");
+			
+		}
 
 	}
 

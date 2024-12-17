@@ -18,7 +18,7 @@ public class TestStudentModel {
 		// testUpdate();
 		// testDelete();
 		// testFinedByPk();
-		 testSearch();
+		testSearch();
 
 	}
 
@@ -30,8 +30,8 @@ public class TestStudentModel {
 		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		List list = new ArrayList();
 		int pageNo = 1;
-		int pageSize = 5;
-		
+		int pageSize = 12;
+
 		// bean.setFirstName("ajay");
 		// bean.setLastName("thakur");
 		// bean.setDob(sdf.parse("2001-08-02"));
@@ -40,9 +40,11 @@ public class TestStudentModel {
 		// bean.setEmail("ajay@gmail.com");
 		// bean.setCreatedBy("admin");
 		// bean.setModifiedBy("admin");
-		// bean.setCreatedDatetime(new Timestamp(simple.parse("2024-12-13 18:51:28").getTime()));
-		bean.setModifiedDatetime(new Timestamp(simple.parse("2024-12-13 18:55:26").getTime()));
-		
+		// bean.setCreatedDatetime(new Timestamp(simple.parse("2024-12-13
+		// 18:51:28").getTime()));
+		// bean.setModifiedDatetime(new Timestamp(simple.parse("2024-12-13
+		// 18:55:26").getTime()));
+
 		list = model.search(bean, pageNo, pageSize);
 
 		Iterator it = list.iterator();
@@ -79,19 +81,25 @@ public class TestStudentModel {
 
 		bean = model.finedByPk(id);
 
-		System.out.println(bean.getId());
-		System.out.println(bean.getFirstName());
-		System.out.println(bean.getLastName());
-		System.out.println(bean.getDob());
-		System.out.println(bean.getGender());
-		System.out.println(bean.getMobileNo());
-		System.out.println(bean.getEmail());
-		System.out.println(bean.getCollegeId());
-		System.out.println(bean.getCollegeName());
-		System.out.println(bean.getCreatedBy());
-		System.out.println(bean.getModifiedBy());
-		System.out.println(bean.getCreatedDatetime());
-		System.out.println(bean.getModifiedDatetime());
+		if (bean != null) {
+			System.out.println(bean.getId());
+			System.out.println(bean.getFirstName());
+			System.out.println(bean.getLastName());
+			System.out.println(bean.getDob());
+			System.out.println(bean.getGender());
+			System.out.println(bean.getMobileNo());
+			System.out.println(bean.getEmail());
+			System.out.println(bean.getCollegeId());
+			System.out.println(bean.getCollegeName());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+		} else {
+
+			System.out.println("user not found");
+
+		}
 
 	}
 
