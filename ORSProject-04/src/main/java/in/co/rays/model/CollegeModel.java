@@ -173,15 +173,27 @@ public class CollegeModel {
 
 			conn = JDBCDataSource.getConnection();
 
+			conn.setAutoCommit(false);
+
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_college where id = ?");
 
 			pstmt.setLong(1, id);
 
 			int i = pstmt.executeUpdate();
 
+			conn.commit();
+
 			System.out.println("data deleted successfully => " + i);
 
 		} catch (Exception e) {
+
+			try {
+				conn.rollback();
+			} catch (Exception e1) {
+
+				throw new ApplicationException("Exception : Exception in rollback " + e1.getMessage());
+
+			}
 
 			throw new ApplicationException("Exception : Exception in delete " + e);
 
