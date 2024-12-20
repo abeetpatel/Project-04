@@ -272,6 +272,10 @@ public class RoleModel {
 
 	}
 
+	public List list() throws Exception {
+		return search(null, 0, 0);
+	}
+
 	public List search(RoleBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_role where 1 = 1");

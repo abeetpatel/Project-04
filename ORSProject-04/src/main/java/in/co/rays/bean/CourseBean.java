@@ -1,6 +1,6 @@
 package in.co.rays.bean;
 
-public class CourseBean extends BaseBean{
+public class CourseBean extends BaseBean {
 
 	private String name;
 	private String duration;
@@ -28,6 +28,16 @@ public class CourseBean extends BaseBean{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String getKey() {
+		return id + "";
+	}
+
+	@Override
+	public String getValue() {
+		return name;
 	}
 
 }

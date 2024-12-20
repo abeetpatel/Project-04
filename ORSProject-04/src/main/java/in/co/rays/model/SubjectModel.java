@@ -288,6 +288,10 @@ public class SubjectModel {
 
 	}
 
+	public List list() throws Exception {
+		return search(null, 0, 0);
+	}
+
 	public List search(SubjectBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_subject where 1 = 1");

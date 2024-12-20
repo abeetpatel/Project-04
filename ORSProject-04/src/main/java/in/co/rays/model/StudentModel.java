@@ -252,6 +252,10 @@ public class StudentModel {
 
 	}
 
+	public List list() throws Exception {
+		return search(null, 0, 0);
+	}
+
 	public List search(StudentBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_student where 1 = 1");

@@ -2,7 +2,7 @@ package in.co.rays.bean;
 
 import java.util.Date;
 
-public class StudentBean extends BaseBean{
+public class StudentBean extends BaseBean {
 
 	private String firstName;
 	private String lastName;
@@ -75,6 +75,16 @@ public class StudentBean extends BaseBean{
 
 	public void setCollegeName(String collegeName) {
 		this.collegeName = collegeName;
+	}
+
+	@Override
+	public String getKey() {
+		return id + "";
+	}
+
+	@Override
+	public String getValue() {
+		return firstName + " " + lastName;
 	}
 
 }

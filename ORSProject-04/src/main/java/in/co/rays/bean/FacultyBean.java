@@ -113,4 +113,14 @@ public class FacultyBean extends BaseBean {
 		this.subjectName = subjectName;
 	}
 
+	@Override
+	public String getKey() {
+		return id + "";
+	}
+
+	@Override
+	public String getValue() {
+		return firstName + " " + lastName;
+	}
+
 }
