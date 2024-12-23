@@ -8,6 +8,7 @@ public class UserBean extends BaseBean {
 	private String lastName;
 	private String login;
 	private String password;
+	private String ConfirmPassword;;
 	private Date dob;
 	private String mobileNo;
 	private long roleId;
@@ -43,6 +44,14 @@ public class UserBean extends BaseBean {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return ConfirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		ConfirmPassword = confirmPassword;
 	}
 
 	public Date getDob() {
