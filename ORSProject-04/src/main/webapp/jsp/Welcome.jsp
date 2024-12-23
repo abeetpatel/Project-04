@@ -14,7 +14,7 @@
 	<br>
 	<br>
 	<center>
-		<h1>Welcome to My Web Application</h1>
+		<h1>Welcome to ORS</h1>
 	</center>
 	<%@include file="Footer.jsp"%>
 </body>
