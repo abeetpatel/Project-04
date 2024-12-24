@@ -25,6 +25,8 @@ public class UserRegistrationCtl extends BaseCtl {
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 		boolean isValid = true;
+		
+		// Validate First Name
 		String firstName = request.getParameter("firstName");
 		if (DataValidator.isNull(firstName)) {
 			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
@@ -137,7 +139,7 @@ public class UserRegistrationCtl extends BaseCtl {
 			throws ServletException, IOException {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
-
+ 
 		UserBean bean = (UserBean) populateBean(request);
 
 		UserModel model = new UserModel();
@@ -161,8 +163,6 @@ public class UserRegistrationCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-
-		System.out.println(ORSView.USER_REGISTRATION_VIEW);
 
 		return ORSView.USER_REGISTRATION_VIEW;
 	}

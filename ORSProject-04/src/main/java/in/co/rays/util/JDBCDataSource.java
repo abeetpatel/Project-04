@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public final class JDBCDataSource {
+	
+	//it use to provide the connection in project.
 
 	private static JDBCDataSource jds = null;
 	private ComboPooledDataSource cpds = null;

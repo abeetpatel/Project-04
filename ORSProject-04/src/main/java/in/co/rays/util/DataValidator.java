@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DataValidator {
+	
+	// it validates the data considering there regix.
 
 	public static boolean isNull(String val) {
 		if (val == null || val.trim().length() == 0) {

@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.ctl.LoginCtl"%>
 <%@page import="in.co.rays.ctl.ORSView"%>
 <%@page import="in.co.rays.bean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -11,30 +12,44 @@
 <body>
 
 	<%
-		UserBean user = (UserBean) session.getAttribute("user");
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		boolean userLoggedIn = userBean != null;
+		String welcomeMsg = "Hi, "
+				+ (userLoggedIn ? userBean.getFirstName() + " (" + session.getAttribute("role") + ")" : "Guest");
 	%>
-
-	<%
-		if (user != null) {
-	%>
-	<h2><%="Hi, " + user.getFirstName()%></h2>
-	<a href="<%=ORSView.USER_REGISTRATION_CTL%>">Add User</a> |
-	<a href="<%=ORSView.WELCOME_CTL%>">Welcome</a> |
-
-
-	<%
-		} else {
-	%>
-	<h2>Hi, Guest</h2>
-	<a href="<%=ORSView.USER_REGISTRATION_CTL%>">SignUp</a> |
-	<a href="<%=ORSView.LOGIN_CTL%>">Login</a> |
-	<a href="<%=ORSView.WELCOME_CTL%>">Welcome</a>
-	<%
-		}
-	%>
-
-
-
+	<table>
+		<tr>
+			<td width="90%"><a style="text-decoration: none;"
+				href="<%=ORSView.WELCOME_CTL%>"><b>Welcome</b></a> | <%
+				if (userLoggedIn) {
+			%> <a style="text-decoration: none;"
+				href="<%=ORSView.LOGIN_CTL%>?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
+				<%
+					} else {
+				%> <a style="text-decoration: none;" href="<%=ORSView.LOGIN_CTL%>"><b>Login</b></a>
+				<%
+					}
+				%></td>
+			<td rowspan="2" align="right"><img
+				src="<%=ORSView.APP_CONTEXT%>/img/customLogo.jpg" width="318"
+				height="90"></td>
+		</tr>
+		<tr>
+			<td>
+				<h3><%=welcomeMsg%></h3>
+			</td>
+		</tr>
+		<%
+			if (userLoggedIn) {
+		%>
+		<tr>
+			<td colspan="2"><a href="<%=ORSView.USER_REGISTRATION_CTL%>">Add User</a> | <a href="#">User
+					List</a> | <a href="#">Add Role</a> | <a href="#">Role List</a></td>
+		</tr>
+		<%
+			}
+		%>
+	</table>
 	<hr>
 
 </body>

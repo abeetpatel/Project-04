@@ -3,6 +3,8 @@ package in.co.rays.util;
 import java.util.ResourceBundle;
 
 public class PropertyReader {
+	
+	//it use to read the properties written in resource bundle.
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.bundle.system");
 

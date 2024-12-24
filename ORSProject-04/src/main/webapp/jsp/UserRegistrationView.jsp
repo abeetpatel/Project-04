@@ -81,7 +81,7 @@
 				</tr>
 				<tr>
 					<th align="left">DOB<span style="color: red">*</span></th>
-					<td><input style="width: 97" type="date" name="dob"
+					<td><input style="width: 97%" type="date" name="dob"
 						placeholder="Select Date of Birth" /></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 
@@ -107,7 +107,8 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td colspan="3"><input type="submit" name="operation"
+					<td colspan="3"><input type="submit" name="operat
+					ion"
 						value="<%=UserRegistrationCtl.OP_SIGN_UP%>" /> <input
 						type="submit" name="operation"
 						value="<%=UserRegistrationCtl.OP_RESET%>" /></td>

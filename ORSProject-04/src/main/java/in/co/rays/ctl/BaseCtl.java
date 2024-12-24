@@ -46,7 +46,7 @@ public abstract class BaseCtl extends HttpServlet {
 	 * preload functionality is needed.
 	 */
 	protected void preload(HttpServletRequest request) {
-		System.out.println("BaseCtl preload called");
+		System.out.println("In Service : BaseCtl preload called");
 	}
 
 	/**
@@ -103,9 +103,11 @@ public abstract class BaseCtl extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		preload(request);
+
+		System.out.println("service");
 
 		String op = DataUtility.getString(request.getParameter("operation"));
+		System.out.println("in service = > " + op);
 
 		// Perform validation for all operations except for these
 		if (DataValidator.isNotNull(op) && !OP_CANCEL.equalsIgnoreCase(op) && !OP_VIEW.equalsIgnoreCase(op)

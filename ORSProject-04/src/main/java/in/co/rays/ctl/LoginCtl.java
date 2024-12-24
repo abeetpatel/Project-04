@@ -26,7 +26,33 @@ public class LoginCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
-		return false;
+
+		boolean isValid = true;
+
+		String op = DataUtility.getString(request.getParameter("operation"));
+
+		// Skip validation if logging out or signing up
+		if (OP_LOG_OUT.equalsIgnoreCase(op) || OP_SIGN_UP.equalsIgnoreCase(op)) {
+			return isValid;
+		}
+
+		// Validate login
+		if (DataValidator.isNull(request.getParameter("login"))) {
+			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
+			isValid = false;
+		} else if (!DataValidator.isEmail(request.getParameter("login"))) {
+			request.setAttribute("login", PropertyReader.getValue("error.email", "Login"));
+			isValid = false;
+		}
+
+		// Validate password
+		if (DataValidator.isNull(request.getParameter("password"))) {
+			request.setAttribute("password", PropertyReader.getValue("error.require", "Password"));
+			isValid = false;
+		}
+
+		return isValid;
+
 	}
 
 	@Override
@@ -40,6 +66,16 @@ public class LoginCtl extends BaseCtl {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String op = DataUtility.getString(request.getParameter("operation"));
+		System.out.println("do get = > " + op);
+
+		// Handle logout operation
+		if (OP_LOG_OUT.equalsIgnoreCase(op)) {
+			HttpSession session = request.getSession();
+			System.out.println("do get => " + session.getId());
+			session.invalidate();
+			ServletUtility.setSuccessMessage("Logged out successfully.", request);
+		}
 
 		ServletUtility.forward(getView(), request, response);
 	}
@@ -48,6 +84,39 @@ public class LoginCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String op = DataUtility.getString(request.getParameter("operation"));
+		System.out.println("do post = >" + op);
+		UserModel userModel = new UserModel();
+		RoleModel roleModel = new RoleModel();
+		HttpSession session = request.getSession();
+		System.out.println("do post =>" + session.getId());
+
+		if (OP_SIGN_IN.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
+
+			try {
+				bean = userModel.authenticate(bean.getLogin(), bean.getPassword());
+				if (bean != null) {
+					session.setAttribute("user", bean);
+
+					RoleBean roleBean = roleModel.finedByPk(bean.getRoleId());
+					System.out.println(roleBean.getName());
+					session.setAttribute("role", roleBean.getName());
+					ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
+				} else {
+					UserBean userBean = (UserBean) populateBean(request);
+					ServletUtility.setBean(bean, request);
+					ServletUtility.setErrorMessage("Invalid Login ID or Password.", request);
+					ServletUtility.forward(getView(), request, response);
+				}
+			} catch (ApplicationException e) {
+
+			} catch (Exception e) {
+
+			}
+		} else if (OP_SIGN_UP.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
+		}
 	}
 
 	@Override

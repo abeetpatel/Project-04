@@ -9,6 +9,8 @@ import in.co.rays.bean.DropdownListBean;
 import in.co.rays.model.UserModel;
 
 public class HTMLUtility {
+	
+	// it use to create the dropdown(static and dynamic) using map and list 
 
 	public static String getList(String name, String selectedVal, HashMap<String, String> map) {
 

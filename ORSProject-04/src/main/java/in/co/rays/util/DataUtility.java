@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DataUtility {
+	
+	//It's uses to convert data from string data type to any data type.
 
 	public static final String APP_DATE_FORMAT = "dd-MM-yyyy";
 
