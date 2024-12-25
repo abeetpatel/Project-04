@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.bean.DropdownListBean"%>
 <%@page import="in.co.rays.bean.RoleBean"%>
 <%@page import="in.co.rays.model.RoleModel"%>
@@ -56,22 +57,22 @@
 				<tr>
 					<td align="center"><label><b>First Name :</b></label> <input
 						type="text" name="firstName"
-						value="<%=ServletUtility.getParameter("firstName", request)%>">&nbsp;
-						<label><b>Last Name :</b></label> <input
-						type="text" name="lastName"
-						value="<%=ServletUtility.getParameter("lastName", request)%>">&nbsp;
-						<label><b>Login :</b></label> <input
-						type="text" name="login"
-						value="<%=ServletUtility.getParameter("login", request)%>">&nbsp;
-						<label><b>Mobile No. :</b></label> <input
-						type="text" name="mobileNo"
-						value="<%=ServletUtility.getParameter("mobileNo", request)%>">&nbsp;
-						<label><b>Gender :</b></label> <input
-						type="text" name="gender"
-						value="<%=ServletUtility.getParameter("gender", request)%>">&nbsp;
-						<label><b>DOB :</b></label> <input
-						type="text" name="dob"
-						value="<%=ServletUtility.getParameter("dob", request)%>">&nbsp;
+						value="<%=ServletUtility.getParameter("firstName", request)%>">
+						<label><b>Last Name :</b></label> <input type="text"
+						name="lastName"
+						value="<%=ServletUtility.getParameter("lastName", request)%>">
+						<label><b>Login :</b></label> <input type="text" name="login"
+						value="<%=ServletUtility.getParameter("login", request)%>">
+						<label><b>Mobile No. :</b></label> <input type="text"
+						name="mobileNo"
+						value="<%=ServletUtility.getParameter("mobileNo", request)%>">
+						<label><b>Gender :</b></label> <%
+ 	HashMap<String, String> map = new HashMap<>();
+ 		map.put("male", "Male");
+ 		map.put("female", "Female");
+ %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> <label><b>DOB
+								:</b></label> <input type="date" name="dob"
+						value="<%=ServletUtility.getParameter("dob", request)%>">
 						<label><b>Role :</b></label> <%
  	RoleModel model = new RoleModel();
 
@@ -81,9 +82,8 @@
 
  		String htmlSelectFromList = HTMLUtility.getList("roleId", selectedValue, list1);
  %><%=htmlSelectFromList%> <input type="submit" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> &nbsp; <input
-						type="submit" name="operation" value="<%=UserListCtl.OP_RESET%>">
-					</td>
+						value="<%=UserListCtl.OP_SEARCH%>"> <input type="submit"
+						name="operation" value="<%=UserListCtl.OP_RESET%>"></td>
 				</tr>
 			</table>
 

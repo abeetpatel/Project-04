@@ -34,6 +34,11 @@ public class UserListCtl extends BaseCtl {
 	protected BaseBean populateBean(HttpServletRequest request) {
 		UserBean bean = new UserBean();
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
+		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
+		bean.setLogin(DataUtility.getString(request.getParameter("login")));
+		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
+		bean.setGender(DataUtility.getString(request.getParameter("gender")));
+		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
 		return bean;
 	}
