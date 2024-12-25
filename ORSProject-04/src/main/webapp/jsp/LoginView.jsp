@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>     
+<title>Insert title here</title>
 </head>
 <body>
 	<%@ include file="Header.jsp"%>
@@ -23,14 +23,14 @@
 				<font color="navy">Login Page</font>
 			</h1>
 
-<div style="height: 15px; margin-bottom: 12px">
-                <h3 align="center">
-                    <font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
-                </h3>
-                <h3 align="center">
-                    <font color="green"><%=ServletUtility.getSuccessMessage(request)%></font>
-                </h3>
-            </div>
+			<div style="height: 15px; margin-bottom: 12px">
+				<h3 align="center">
+					<font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
+				</h3>
+				<h3 align="center">
+					<font color="green"><%=ServletUtility.getSuccessMessage(request)%></font>
+				</h3>
+			</div>
 
 			<table>
 

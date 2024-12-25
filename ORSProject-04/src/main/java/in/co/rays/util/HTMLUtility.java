@@ -6,11 +6,12 @@ import java.util.Set;
 
 import in.co.rays.bean.BaseBean;
 import in.co.rays.bean.DropdownListBean;
+import in.co.rays.model.RoleModel;
 import in.co.rays.model.UserModel;
 
 public class HTMLUtility {
-	
-	// it use to create the dropdown(static and dynamic) using map and list 
+
+	// it use to create the dropdown(static and dynamic) using map and list
 
 	public static String getList(String name, String selectedVal, HashMap<String, String> map) {
 
@@ -67,7 +68,6 @@ public class HTMLUtility {
 		return sb.toString();
 	}
 
-
 	public static void testGetListByMap() {
 
 		HashMap<String, String> map = new HashMap<>();
@@ -83,8 +83,7 @@ public class HTMLUtility {
 
 	public static void testGetListByList() throws Exception {
 
-		// RoleModel model = new RoleModel();
-		UserModel model = new UserModel();
+		RoleModel model = new RoleModel();
 
 		List<DropdownListBean> list = model.list();
 
