@@ -41,10 +41,10 @@
 
 			<%
 				int pageNo = ServletUtility.getPageNo(request);
-				int pageSize = ServletUtility.getPageSize(request);
-				int index = ((pageNo - 1) * pageSize) + 1;
-				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
-				List roleList = (List) request.getAttribute("roleList");
+					int pageSize = ServletUtility.getPageSize(request);
+					int index = ((pageNo - 1) * pageSize) + 1;
+					int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
+					List roleList = (List) request.getAttribute("roleList");
 				List list = ServletUtility.getList(request);
 				Iterator it = list.iterator();
 				if (list.size() != 0) {
