@@ -89,7 +89,7 @@ public class HTMLUtility {
 
 		String selectedValue = null;
 
-		String htmlSelectFromList = HTMLUtility.getList("fname", selectedValue, list);
+		String htmlSelectFromList = HTMLUtility.getList("roleId", selectedValue, list);
 
 		System.out.println(htmlSelectFromList);
 	}

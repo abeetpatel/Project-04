@@ -127,7 +127,7 @@ public class UserCtl extends BaseCtl {
 		bean.setPassword(DataUtility.getString(request.getParameter("password")));
 		bean.setConfirmPassword(DataUtility.getString(request.getParameter("confirmPassword")));
 		bean.setGender(DataUtility.getString(request.getParameter("gender")));
-		System.out.println("userctl/populatebean/gender= >"+request.getParameter("gender"));
+		System.out.println("userctl/populatebean/gender= >" + request.getParameter("gender"));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
 		System.out.println("userctl/populatebean/roleId = >" + request.getParameter("roleId"));
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
@@ -153,21 +153,6 @@ public class UserCtl extends BaseCtl {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String op = DataUtility.getString(request.getParameter("operation"));
-		Long id = DataUtility.getLong(request.getParameter("id"));
-
-		if (id > 0) {
-
-			UserModel model = new UserModel();
-
-			try {
-				UserBean bean = model.finedByPk(id);
-				ServletUtility.setBean(bean, request);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-			}
-		}
 
 		ServletUtility.forward(getView(), request, response);
 

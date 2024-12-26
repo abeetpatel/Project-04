@@ -127,17 +127,7 @@
 
 				<tr>
 					<th align="left">Role <span style="color: red">*</span></th>
-					<td>
-						<%
-							RoleModel model = new RoleModel();
-
-							List<DropdownListBean> list = model.list();
-
-							String selectedValue = null;
-
-							String htmlSelectFromList = HTMLUtility.getList("roleId", selectedValue, list);
-						%><%=htmlSelectFromList%>
-					</td>
+					<td><%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%></td>
 
 					</td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("roleId", request)%></font></td>

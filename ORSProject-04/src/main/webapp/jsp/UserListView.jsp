@@ -70,18 +70,8 @@
  	HashMap<String, String> map = new HashMap<>();
  		map.put("male", "Male");
  		map.put("female", "Female");
- %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> <label><b>DOB
-								:</b></label> <input type="date" name="dob"
-						value="<%=ServletUtility.getParameter("dob", request)%>">
-						<label><b>Role :</b></label> <%
- 	RoleModel model = new RoleModel();
-
- 		List<DropdownListBean> list1 = model.list();
-
- 		String selectedValue = null;
-
- 		String htmlSelectFromList = HTMLUtility.getList("roleId", selectedValue, list1);
- %><%=htmlSelectFromList%> <input type="submit" name="operation"
+ %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> 
+						<label><b>Role :</b></label> <%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_SEARCH%>"> <input type="submit"
 						name="operation" value="<%=UserListCtl.OP_RESET%>"></td>
 				</tr>
@@ -101,6 +91,7 @@
 					<th>DOB</th>
 					<th>Role</th>
 					<th>Edit</th>
+					
 				</tr>
 				<%
 					while (it.hasNext()) {
@@ -119,9 +110,8 @@
 					<td><%=bean.getGender()%></td>
 					<td><%=bean.getDob()%></td>
 					<td><%=roleBean.getName()%></td>
-					<td><a href="<%=ORSView.USER_CTL%>?id=<%=bean.getId()%>"
-						<%if (userBean.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) {%>
-						onclick="return false;" <%}%>>edit</a></td>
+					<td><a href="#">edit</a></td>
+					
 				</tr>
 				<%
 					}

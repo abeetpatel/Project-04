@@ -18,6 +18,17 @@ import in.co.rays.util.ServletUtility;
 
 @WebServlet("/RoleListCtl")
 public class RoleListCtl extends BaseCtl {
+	
+	@Override
+	protected void preload(HttpServletRequest request) {
+		RoleModel model = new RoleModel();
+		try {
+			List roleList = model.list();
+			request.setAttribute("roleList", roleList);
+		} catch (Exception e) {
+		}
+	}
+
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
@@ -25,7 +36,6 @@ public class RoleListCtl extends BaseCtl {
 		RoleBean bean = new RoleBean();
 
 		bean.setName(DataUtility.getString(request.getParameter("name")));
-		bean.setDescription(DataUtility.getString(request.getParameter("description")));
 
 		return bean;
 
@@ -88,7 +98,7 @@ public class RoleListCtl extends BaseCtl {
 			} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
 				pageNo--;
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_CTL, request, response);
+				ServletUtility.redirect(ORSView.ROLE_CTL, request, response);
 				return;
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
