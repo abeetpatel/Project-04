@@ -60,7 +60,7 @@ public class MarksheetModel {
 
 		MarksheetBean existsbean = finedByRollNo(bean.getRollNo());
 		if (existsbean != null) {
-			throw new DuplicateRecordException("Marksheet already exists");
+			throw new DuplicateRecordException("Roll No already exists");
 		}
 
 		Connection conn = null;
@@ -119,7 +119,7 @@ public class MarksheetModel {
 
 		MarksheetBean existsbean = finedByRollNo(bean.getRollNo());
 		if (existsbean != null && existsbean.getId() != bean.getId()) {
-			throw new DuplicateRecordException("Marksheet already exists");
+			throw new DuplicateRecordException("Roll No already exists");
 		}
 
 		Connection conn = null;
@@ -310,6 +310,12 @@ public class MarksheetModel {
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where 1 = 1");
 
 		if (bean != null) {
+
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+
+			}
 
 			if (bean.getRollNo() != null && bean.getRollNo().length() > 0) {
 

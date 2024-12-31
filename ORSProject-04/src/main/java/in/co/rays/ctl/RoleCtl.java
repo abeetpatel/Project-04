@@ -114,6 +114,10 @@ public class RoleCtl extends BaseCtl {
 
 			return;
 
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.ROLE_LIST_CTL, request, response);
+
 		}
 
 	}

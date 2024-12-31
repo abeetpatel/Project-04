@@ -275,6 +275,11 @@ public class TimetableModel {
 
 		if (bean != null) {
 
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+			}
+
 			if (bean.getSemester() != null && bean.getSemester().length() > 0) {
 
 				sql.append(" and semester like '" + bean.getSemester() + "%'");

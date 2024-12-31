@@ -27,7 +27,7 @@
  	} else {
  %>Add<%
  	}
- %>College
+ %> College
 				</font>
 			</h1>
 

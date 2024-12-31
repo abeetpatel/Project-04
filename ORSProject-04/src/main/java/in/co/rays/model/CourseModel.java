@@ -281,11 +281,16 @@ public class CourseModel {
 		return search(null, 0, 0);
 	}
 
-	public List search(CourseBean bean, int pageNo, int pageSize) throws Exception {
+	public List search(CourseBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_course where 1 = 1");
 
 		if (bean != null) {
+
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+			}
 
 			if (bean.getName() != null && bean.getName().length() > 0) {
 

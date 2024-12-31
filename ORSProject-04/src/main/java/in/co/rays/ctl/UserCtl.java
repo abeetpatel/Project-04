@@ -127,11 +127,10 @@ public class UserCtl extends BaseCtl {
 		bean.setPassword(DataUtility.getString(request.getParameter("password")));
 		bean.setConfirmPassword(DataUtility.getString(request.getParameter("confirmPassword")));
 		bean.setGender(DataUtility.getString(request.getParameter("gender")));
-		System.out.println("userctl/populatebean/gender= >" + request.getParameter("gender"));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
-		System.out.println("userctl/populatebean/roleId = >" + request.getParameter("roleId"));
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
+
 		populateDTO(bean, request);
 
 		return bean;
@@ -142,8 +141,10 @@ public class UserCtl extends BaseCtl {
 	protected void preload(HttpServletRequest request) {
 
 		RoleModel roleModel = new RoleModel();
+
 		try {
 			List roleList = roleModel.list();
+
 			request.setAttribute("roleList", roleList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,6 +155,20 @@ public class UserCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String op = DataUtility.getString(request.getParameter("operation"));
+		Long id = DataUtility.getLong(request.getParameter("id"));
+
+		if (id > 0) {
+
+			UserModel model = new UserModel();
+
+			try {
+				UserBean bean = model.finedByPk(id);
+				ServletUtility.setBean(bean, request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
 		ServletUtility.forward(getView(), request, response);
 
 	}
@@ -187,6 +202,12 @@ public class UserCtl extends BaseCtl {
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);
 
 			return;
+
+		}
+
+		else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
 
 		}
 

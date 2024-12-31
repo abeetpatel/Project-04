@@ -8,9 +8,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import in.co.rays.bean.CourseBean;
+import in.co.rays.bean.StudentBean;
 import in.co.rays.bean.SubjectBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DatabaseException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.util.JDBCDataSource;
 
 public class SubjectModel {
@@ -51,11 +53,17 @@ public class SubjectModel {
 
 	}
 
-	public void add(SubjectBean bean) throws ApplicationException {
+	public void add(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CourseModel crmodel = new CourseModel();
 		CourseBean crbean = crmodel.finedByPk(bean.getCourseId());
 		String courseName = crbean.getName();
+
+		SubjectBean existBean = finedByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Subject Already Exist");
+		}
 
 		Connection conn = null;
 
@@ -103,11 +111,17 @@ public class SubjectModel {
 
 	}
 
-	public void update(SubjectBean bean) throws ApplicationException {
+	public void update(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CourseModel crmodel = new CourseModel();
 		CourseBean crbean = crmodel.finedByPk(bean.getCourseId());
 		String courseName = crbean.getName();
+
+		SubjectBean existBean = finedByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Subject Already Exist");
+		}
 
 		Connection conn = null;
 
@@ -297,6 +311,11 @@ public class SubjectModel {
 		StringBuffer sql = new StringBuffer("select * from st_subject where 1 = 1");
 
 		if (bean != null) {
+
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+			}
 
 			if (bean.getName() != null && bean.getName().length() > 0) {
 

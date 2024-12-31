@@ -12,6 +12,7 @@ import in.co.rays.bean.CollegeBean;
 import in.co.rays.bean.StudentBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DatabaseException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.util.JDBCDataSource;
 
 public class StudentModel {
@@ -48,11 +49,17 @@ public class StudentModel {
 
 	}
 
-	public void add(StudentBean bean) throws ApplicationException {
+	public void add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CollegeModel clgmodel = new CollegeModel();
 		CollegeBean clgbean = clgmodel.finedByPk(bean.getCollegeId());
 		String collegeName = clgbean.getName();
+
+		StudentBean existBean = finedByEmail(bean.getEmail());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Email already exist");
+		}
 
 		Connection conn = null;
 
@@ -105,11 +112,17 @@ public class StudentModel {
 
 	}
 
-	public void update(StudentBean bean) throws ApplicationException {
+	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CollegeModel clgmodel = new CollegeModel();
 		CollegeBean clgbean = clgmodel.finedByPk(bean.getCollegeId());
 		String collegeName = clgbean.getName();
+
+		StudentBean existBean = finedByEmail(bean.getEmail());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("Email already exist");
+		}
 
 		Connection conn = null;
 
@@ -252,6 +265,57 @@ public class StudentModel {
 
 	}
 
+	public StudentBean finedByEmail(String email) throws ApplicationException {
+
+		Connection conn = null;
+
+		StudentBean bean = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_student where email = ?");
+
+			pstmt.setString(1, email);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				bean = new StudentBean();
+
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setDob(rs.getDate(4));
+				bean.setGender(rs.getString(5));
+				bean.setMobileNo(rs.getString(6));
+				bean.setEmail(rs.getString(7));
+				bean.setCollegeId(rs.getLong(8));
+				bean.setCollegeName(rs.getString(9));
+				bean.setCreatedBy(rs.getString(10));
+				bean.setModifiedBy(rs.getString(11));
+				bean.setCreatedDatetime(rs.getTimestamp(12));
+				bean.setModifiedDatetime(rs.getTimestamp(13));
+
+			}
+
+		} catch (Exception e) {
+
+			throw new ApplicationException("Exception : Exception in finedByEmail" + e);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+			;
+
+		}
+
+		return bean;
+
+	}
+
 	public List list() throws Exception {
 		return search(null, 0, 0);
 	}
@@ -261,6 +325,11 @@ public class StudentModel {
 		StringBuffer sql = new StringBuffer("select * from st_student where 1 = 1");
 
 		if (bean != null) {
+
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+			}
 
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
 

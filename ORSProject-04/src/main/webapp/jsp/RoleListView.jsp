@@ -46,7 +46,9 @@
 				int pageSize = ServletUtility.getPageSize(request);
 				int index = ((pageNo - 1) * pageSize) + 1;
 				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
-			
+
+				List roleList = (List) request.getAttribute("roleList");
+
 				List list = ServletUtility.getList(request);
 				Iterator it = list.iterator();
 				if (list.size() != 0) {
@@ -57,12 +59,10 @@
 
 			<table style="width: 100%">
 				<tr>
-					<td align="center"><label><b>Role Name :</b></label> <input
-						type="text" name="name"
-						value="<%=ServletUtility.getParameter("name", request)%>">
+					<td align="center"><label><b>Role :</b></label> <%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getId()), roleList)%>
 
 						<input type="submit" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> <input type="submit"
+						value="<%=RoleListCtl.OP_SEARCH%>"> <input type="submit"
 						name="operation" value="<%=RoleListCtl.OP_RESET%>"></td>
 				</tr>
 			</table>
@@ -90,7 +90,7 @@
 					<td><%=index++%></td>
 					<td><%=bean.getName()%></td>
 					<td><%=bean.getDescription()%></td>
-					<td><a href="#">edit</a></td>
+					<td><a href="<%=ORSView.ROLE_CTL%>?id=<%=bean.getId()%>">Edit</a></td>
 
 				</tr>
 

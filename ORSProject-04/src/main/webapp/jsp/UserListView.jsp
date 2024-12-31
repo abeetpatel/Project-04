@@ -41,10 +41,10 @@
 
 			<%
 				int pageNo = ServletUtility.getPageNo(request);
-					int pageSize = ServletUtility.getPageSize(request);
-					int index = ((pageNo - 1) * pageSize) + 1;
-					int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
-					List roleList = (List) request.getAttribute("roleList");
+				int pageSize = ServletUtility.getPageSize(request);
+				int index = ((pageNo - 1) * pageSize) + 1;
+				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
+				List roleList = (List) request.getAttribute("roleList");
 				List list = ServletUtility.getList(request);
 				Iterator it = list.iterator();
 				if (list.size() != 0) {
@@ -70,10 +70,11 @@
  	HashMap<String, String> map = new HashMap<>();
  		map.put("male", "Male");
  		map.put("female", "Female");
- %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> 
-						<label><b>Role :</b></label> <%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%><input type="submit" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> <input type="submit"
-						name="operation" value="<%=UserListCtl.OP_RESET%>"></td>
+ %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> <label><b>Role
+								:</b></label> <%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%><input
+						type="submit" name="operation" value="<%=UserListCtl.OP_SEARCH%>">
+						<input type="submit" name="operation"
+						value="<%=UserListCtl.OP_RESET%>"></td>
 				</tr>
 			</table>
 
@@ -91,7 +92,7 @@
 					<th>DOB</th>
 					<th>Role</th>
 					<th>Edit</th>
-					
+
 				</tr>
 				<%
 					while (it.hasNext()) {
@@ -110,8 +111,10 @@
 					<td><%=bean.getGender()%></td>
 					<td><%=bean.getDob()%></td>
 					<td><%=roleBean.getName()%></td>
-					<td><a href="#">edit</a></td>
-					
+					<td><a href="<%=ORSView.USER_CTL%>?id=<%=bean.getId()%>"
+						<%if (userBean.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) {%>
+						onclick="return false;" <%}%>>edit</a></td>
+
 				</tr>
 				<%
 					}

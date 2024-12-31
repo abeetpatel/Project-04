@@ -18,7 +18,7 @@ import in.co.rays.util.ServletUtility;
 
 @WebServlet("/RoleListCtl")
 public class RoleListCtl extends BaseCtl {
-	
+
 	@Override
 	protected void preload(HttpServletRequest request) {
 		RoleModel model = new RoleModel();
@@ -26,16 +26,18 @@ public class RoleListCtl extends BaseCtl {
 			List roleList = model.list();
 			request.setAttribute("roleList", roleList);
 		} catch (Exception e) {
+
+			e.printStackTrace();
+
 		}
 	}
-
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
 		RoleBean bean = new RoleBean();
 
-		bean.setName(DataUtility.getString(request.getParameter("name")));
+		bean.setId(DataUtility.getLong(request.getParameter("roleId")));
 
 		return bean;
 
