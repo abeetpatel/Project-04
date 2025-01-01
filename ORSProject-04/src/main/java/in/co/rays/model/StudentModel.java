@@ -331,6 +331,11 @@ public class StudentModel {
 				sql.append(" and id = " + bean.getId());
 			}
 
+			if (bean.getCollegeId() > 0) {
+
+				sql.append(" and college_id = " + bean.getCollegeId());
+			}
+
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
 
 				sql.append(" and first_name like '" + bean.getFirstName() + "%'");

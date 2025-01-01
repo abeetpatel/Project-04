@@ -88,8 +88,6 @@
 				<%
 					while (it.hasNext()) {
 							bean = (CollegeBean) it.next();
-							CollegeModel model = new CollegeModel();
-							CollegeBean collegeBean = model.finedByPk(bean.getId());
 				%>
 				<tr align="center">
 					<td><input type="checkbox" class="case" name="ids"

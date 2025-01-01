@@ -18,6 +18,7 @@ import in.co.rays.bean.FacultyBean;
 import in.co.rays.bean.SubjectBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DatabaseException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.util.JDBCDataSource;
 
 public class FacultyModel {
@@ -58,7 +59,7 @@ public class FacultyModel {
 
 	}
 
-	public void add(FacultyBean bean) throws ApplicationException {
+	public void add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CollegeModel clgmodel = new CollegeModel();
 		CollegeBean clgbean = clgmodel.finedByPk(bean.getCollegeId());
@@ -71,6 +72,11 @@ public class FacultyModel {
 		SubjectModel smodel = new SubjectModel();
 		SubjectBean sbean = smodel.finedByPk(bean.getSubjectId());
 		String subjectName = sbean.getName();
+
+		FacultyBean existBean = finedByEmail(bean.getEmail());
+		if (existBean != null) {
+			throw new DuplicateRecordException("Email Already Exist");
+		}
 
 		Connection conn = null;
 
@@ -127,7 +133,7 @@ public class FacultyModel {
 
 	}
 
-	public void update(FacultyBean bean) throws ApplicationException {
+	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		CollegeModel clgmodel = new CollegeModel();
 		CollegeBean clgbean = clgmodel.finedByPk(bean.getCollegeId());
@@ -140,6 +146,11 @@ public class FacultyModel {
 		SubjectModel smodel = new SubjectModel();
 		SubjectBean sbean = smodel.finedByPk(bean.getSubjectId());
 		String subjectName = sbean.getName();
+
+		FacultyBean existBean = finedByEmail(bean.getEmail());
+		if (existBean != null) {
+			throw new DuplicateRecordException("Email Already Exist");
+		}
 
 		Connection conn = null;
 
@@ -290,6 +301,60 @@ public class FacultyModel {
 
 	}
 
+	public FacultyBean finedByEmail(String email) throws ApplicationException {
+
+		Connection conn = null;
+
+		FacultyBean bean = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_faculty where email =?");
+
+			pstmt.setString(1, email);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				bean = new FacultyBean();
+
+				bean.setId(rs.getLong(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setDob(rs.getDate(4));
+				bean.setGender(rs.getString(5));
+				bean.setMobileNo(rs.getString(6));
+				bean.setEmail(rs.getString(7));
+				bean.setCollegeId(rs.getLong(8));
+				bean.setCollegeName(rs.getString(9));
+				bean.setCourseId(rs.getLong(10));
+				bean.setCourseName(rs.getString(11));
+				bean.setSubjectId(rs.getLong(12));
+				bean.setSubjectName(rs.getString(13));
+				bean.setCreatedBy(rs.getString(14));
+				bean.setModifiedBy(rs.getString(15));
+				bean.setCreatedDatetime(rs.getTimestamp(16));
+				bean.setModifiedDatetime(rs.getTimestamp(17));
+
+			}
+
+		} catch (Exception e) {
+
+			throw new ApplicationException("Exception : Exception in finedByPk" + e);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+
+		}
+
+		return bean;
+
+	}
+
 	public List list() throws Exception {
 		return search(null, 0, 0);
 	}
@@ -303,6 +368,21 @@ public class FacultyModel {
 			if (bean.getId() > 0) {
 
 				sql.append(" and id = " + bean.getId());
+			}
+
+			if (bean.getCollegeId() > 0) {
+
+				sql.append(" and college_id = " + bean.getCollegeId());
+			}
+
+			if (bean.getCourseId() > 0) {
+
+				sql.append(" and course_id = " + bean.getCourseId());
+			}
+
+			if (bean.getSubjectId() > 0) {
+
+				sql.append(" and subject_id = " + bean.getSubjectId());
 			}
 
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {

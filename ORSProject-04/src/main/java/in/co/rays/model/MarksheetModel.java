@@ -317,6 +317,12 @@ public class MarksheetModel {
 
 			}
 
+			if (bean.getStudentId() > 0) {
+
+				sql.append(" and student_id = " + bean.getStudentId());
+
+			}
+
 			if (bean.getRollNo() != null && bean.getRollNo().length() > 0) {
 
 				sql.append(" and roll_no like '" + bean.getRollNo() + "%'");

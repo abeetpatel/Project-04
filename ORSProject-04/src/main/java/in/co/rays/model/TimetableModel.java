@@ -279,6 +279,16 @@ public class TimetableModel {
 
 				sql.append(" and id = " + bean.getId());
 			}
+			
+			if (bean.getCourseId() > 0) {
+
+				sql.append(" and course_id = " + bean.getCourseId());
+			}
+			
+			if (bean.getSubjectId() > 0) {
+
+				sql.append(" and subject_id = " + bean.getSubjectId());
+			}
 
 			if (bean.getSemester() != null && bean.getSemester().length() > 0) {
 

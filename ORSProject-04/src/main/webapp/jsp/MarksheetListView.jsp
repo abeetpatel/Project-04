@@ -58,7 +58,7 @@
 					<td align="center"><label><b>Roll No :</b></label> <input
 						type="text" name="rollNo"
 						value="<%=ServletUtility.getParameter("rollNo", request)%>">
-						<label><b>Student :</b></label> <%=HTMLUtility.getList("studentId", DataUtility.getStringData(bean.getId()), studentList)%><input
+						<label><b>Student :</b></label> <%=HTMLUtility.getList("studentId", DataUtility.getStringData(bean.getStudentId()), studentList)%><input
 						type="submit" name="operation"
 						value="<%=MarksheetListCtl.OP_SEARCH%>"><input
 						type="submit" name="operation"
@@ -83,8 +83,6 @@
 				<%
 					while (it.hasNext()) {
 							bean = (MarksheetBean) it.next();
-							MarksheetModel model = new MarksheetModel();
-							MarksheetBean marksheetBean = model.finedByPk(bean.getStudentId());
 				%>
 				<tr align="center">
 					<td><input type="checkbox" class="case" name="ids"

@@ -72,7 +72,7 @@
  		map.put("male", "Male");
  		map.put("female", "Female");
  %> <%=HTMLUtility.getList("gender", bean.getGender(), map)%> <label><b>College
-								:</b></label> <%=HTMLUtility.getList("collegeId", DataUtility.getStringData(bean.getId()), collegeList)%><input
+								:</b></label> <%=HTMLUtility.getList("collegeId", DataUtility.getStringData(bean.getCollegeId()), collegeList)%><input
 						type="submit" name="operation"
 						value="<%=StudentListCtl.OP_SEARCH%>"><input type="submit"
 						name="operation" value="<%=StudentListCtl.OP_RESET%>"></td>

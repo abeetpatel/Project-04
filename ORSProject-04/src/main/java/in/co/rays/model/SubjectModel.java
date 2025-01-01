@@ -317,6 +317,11 @@ public class SubjectModel {
 				sql.append(" and id = " + bean.getId());
 			}
 
+			if (bean.getCourseId() > 0) {
+
+				sql.append(" and course_id = " + bean.getCourseId());
+			}
+
 			if (bean.getName() != null && bean.getName().length() > 0) {
 
 				sql.append(" and name like '" + bean.getName() + "%'");

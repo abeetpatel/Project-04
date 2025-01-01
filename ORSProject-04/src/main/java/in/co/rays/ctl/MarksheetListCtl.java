@@ -40,7 +40,7 @@ public class MarksheetListCtl extends BaseCtl {
 		MarksheetBean bean = new MarksheetBean();
 
 		bean.setRollNo(DataUtility.getStringData(request.getParameter("rollNo")));
-		bean.setId(DataUtility.getLong(request.getParameter("studentId")));
+		bean.setStudentId(DataUtility.getLong(request.getParameter("studentId")));
 
 		return bean;
 
