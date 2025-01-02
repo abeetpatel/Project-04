@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
+import in.co.rays.bean.MarksheetBean;
 import in.co.rays.bean.RoleBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DuplicateRecordException;
@@ -90,6 +91,8 @@ public class RoleCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		RoleModel model = new RoleModel();
 
 		RoleBean bean = (RoleBean) populateBean(request);
@@ -108,6 +111,23 @@ public class RoleCtl extends BaseCtl {
 				e.printStackTrace();
 			}
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (RoleBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Role already exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.ROLE_CTL, request, response);

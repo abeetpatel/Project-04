@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
+import in.co.rays.bean.StudentBean;
 import in.co.rays.bean.SubjectBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DuplicateRecordException;
@@ -113,6 +114,8 @@ public class SubjectCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		SubjectModel model = new SubjectModel();
 
 		SubjectBean bean = (SubjectBean) populateBean(request);
@@ -131,7 +134,28 @@ public class SubjectCtl extends BaseCtl {
 				e.printStackTrace();
 			}
 
-		} else if (OP_RESET.equalsIgnoreCase(op)) {
+		}
+
+		else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (SubjectBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Subject Already Exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
+		}
+
+		else if (OP_RESET.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.SUBJECT_CTL, request, response);
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
+import in.co.rays.bean.FacultyBean;
 import in.co.rays.bean.MarksheetBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DuplicateRecordException;
@@ -131,6 +132,8 @@ public class MarksheetCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		MarksheetModel model = new MarksheetModel();
 
 		MarksheetBean bean = (MarksheetBean) populateBean(request);
@@ -149,6 +152,23 @@ public class MarksheetCtl extends BaseCtl {
 				e.printStackTrace();
 			}
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (MarksheetBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Roll No already exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.MARKSHEET_CTL, request, response);

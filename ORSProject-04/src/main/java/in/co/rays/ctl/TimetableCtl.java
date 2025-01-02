@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
+import in.co.rays.bean.SubjectBean;
 import in.co.rays.bean.TimetableBean;
 import in.co.rays.exception.ApplicationException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.model.CourseModel;
 import in.co.rays.model.SubjectModel;
 import in.co.rays.model.TimetableModel;
@@ -137,6 +139,8 @@ public class TimetableCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		TimetableModel model = new TimetableModel();
 
 		TimetableBean bean = (TimetableBean) populateBean(request);
@@ -152,7 +156,24 @@ public class TimetableCtl extends BaseCtl {
 				e.printStackTrace();
 			}
 
-		} else if (OP_RESET.equalsIgnoreCase(op)) {
+		}
+
+		else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (TimetableBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			}
+		}
+
+		else if (OP_RESET.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.TIMETABLE_CTL, request, response);
 

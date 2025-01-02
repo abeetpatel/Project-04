@@ -178,6 +178,7 @@ public class UserCtl extends BaseCtl {
 			throws ServletException, IOException {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
+		Long id = DataUtility.getLong(request.getParameter("id"));
 
 		UserModel model = new UserModel();
 
@@ -203,6 +204,23 @@ public class UserCtl extends BaseCtl {
 
 			return;
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (UserBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Login id already exists", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		}
 
 		else if (OP_CANCEL.equalsIgnoreCase(op)) {

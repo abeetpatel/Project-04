@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
 import in.co.rays.bean.CollegeBean;
+import in.co.rays.bean.RoleBean;
 import in.co.rays.bean.StudentBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DuplicateRecordException;
@@ -155,6 +156,8 @@ public class StudentCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+		
 		StudentModel model = new StudentModel();
 
 		StudentBean bean = (StudentBean) populateBean(request);
@@ -167,12 +170,29 @@ public class StudentCtl extends BaseCtl {
 				ServletUtility.forward(getView(), request, response);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("email id already exist", request);
+				ServletUtility.setErrorMessage("Email Id Already Exist", request);
 				ServletUtility.forward(getView(), request, response);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (StudentBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Email Id Already Exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.STUDENT_CTL, request, response);

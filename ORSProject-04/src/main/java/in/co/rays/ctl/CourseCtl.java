@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
+import in.co.rays.bean.CollegeBean;
 import in.co.rays.bean.CourseBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.exception.DuplicateRecordException;
@@ -97,6 +98,8 @@ public class CourseCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		CourseModel model = new CourseModel();
 
 		CourseBean bean = (CourseBean) populateBean(request);
@@ -121,6 +124,23 @@ public class CourseCtl extends BaseCtl {
 
 			return;
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (CourseBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Course Already Exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.COURSE_LIST_CTL, request, response);

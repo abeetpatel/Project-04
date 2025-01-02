@@ -115,6 +115,8 @@ public class CollegeCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
+		long id = DataUtility.getLong(request.getParameter("id"));
+
 		CollegeModel model = new CollegeModel();
 
 		CollegeBean bean = (CollegeBean) populateBean(request);
@@ -139,6 +141,23 @@ public class CollegeCtl extends BaseCtl {
 
 			return;
 
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (CollegeBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("College Already Exist", request);
+				ServletUtility.forward(getView(), request, response);
+			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, request, response);
