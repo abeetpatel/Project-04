@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
 import in.co.rays.bean.StockPurchaseBean;
+import in.co.rays.bean.UserBean;
+import in.co.rays.exception.ApplicationException;
+import in.co.rays.exception.DuplicateRecordException;
 import in.co.rays.model.StockPurchaseModel;
+import in.co.rays.model.UserModel;
 import in.co.rays.util.DataUtility;
 import in.co.rays.util.DataValidator;
 import in.co.rays.util.PropertyReader;
@@ -73,6 +77,20 @@ public class StockPurchaseCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String op = DataUtility.getString(request.getParameter("operation"));
+		Long id = DataUtility.getLong(request.getParameter("id"));
+
+		if (id > 0) {
+
+			StockPurchaseModel model = new StockPurchaseModel();
+
+			try {
+				StockPurchaseBean bean = model.finedByPk(id);
+				ServletUtility.setBean(bean, request);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
 		ServletUtility.forward(getView(), request, response);
 
 	}
@@ -104,6 +122,25 @@ public class StockPurchaseCtl extends BaseCtl {
 			ServletUtility.redirect(ORSView.STOCKPURCHASE_CTL, request, response);
 
 			return;
+
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (StockPurchaseBean) populateBean(request);
+			try {
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Data is successfully updated", request);
+				ServletUtility.forward(getView(), request, response);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				return;
+			} 
+		}
+
+		else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.STOCKPURCHASE_LIST_CTL, request, response);
 
 		}
 

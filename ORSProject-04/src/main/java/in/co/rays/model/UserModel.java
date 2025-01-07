@@ -153,7 +153,9 @@ public class UserModel {
 		} catch (Exception e) {
 
 			try {
+
 				conn.rollback();
+
 			} catch (Exception e1) {
 
 				throw new ApplicationException("Exception : Exception in rollback " + e1.getMessage());

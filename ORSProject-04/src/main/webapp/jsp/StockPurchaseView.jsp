@@ -79,6 +79,7 @@
 							HashMap<String, String> map = new HashMap<>();
 							map.put("market", "Market");
 							map.put("limit", "Limit");
+							map.put("stock", "Stock");
 						%> <%=HTMLUtility.getList("orderType", bean.getOrderType(), map)%>
 					</td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("orderType", request)%></font></td>
