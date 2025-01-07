@@ -56,7 +56,7 @@
 			<table>
 				<!-- Roll No -->
 				<tr>
-					<th align="left">First Name <span style="color: red">*</span></th>
+					<th align="left">Roll No <span style="color: red">*</span></th>
 					<td><input type="text" name="rollNo"
 						placeholder="Enter Roll NO"
 						value="<%=DataUtility.getStringData(bean.getRollNo())%>"></td>
@@ -66,7 +66,7 @@
 				<!-- Student Id -->
 
 				<tr>
-					<th align="left">College Id<span style="color: red">*</span></th>
+					<th align="left">Student Name<span style="color: red">*</span></th>
 					<td><%=HTMLUtility.getList("studentId", DataUtility.getStringData(bean.getStudentId()), studentList)%></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("studentId", request)%></font></td>
 				</tr>

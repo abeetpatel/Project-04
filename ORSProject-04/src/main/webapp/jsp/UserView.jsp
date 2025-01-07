@@ -104,7 +104,7 @@
 				<!-- Date of Birth -->
 				<tr>
 					<th align="left">DOB<span style="color: red">*</span></th>
-					<td><input style="width: 97%" type="date" name="dob"
+					<td><input style="width: 97%" type="text" id="udate" name="dob"
 						placeholder="Select Date of Birth" /></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 

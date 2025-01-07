@@ -97,8 +97,8 @@
 				<%
 					while (it.hasNext()) {
 							bean = (UserBean) it.next();
-							RoleModel model1 = new RoleModel();
-							RoleBean roleBean = model1.finedByPk(bean.getRoleId());
+							RoleModel model = new RoleModel();
+							RoleBean roleBean = model.finedByPk(bean.getRoleId());
 				%>
 				<tr align="center">
 					<td><input type="checkbox" class="case" name="ids"
