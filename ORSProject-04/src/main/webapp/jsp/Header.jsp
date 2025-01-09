@@ -73,7 +73,9 @@
 				href="<%=ORSView.STOCKPURCHASE_CTL%>">Add Stock Purchase</a> | <a
 				href="<%=ORSView.STOCKPURCHASE_LIST_CTL%>">Stock Purchase List</a> |
 				<a href="<%=ORSView.FOLLOWUP_CTL%>">Add Follow Up Data</a> | <a
-				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a></td>
+				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a> | <a
+				href="<%=ORSView.JAVA_DOC_VIEW%>" target="blank">Java Doc</a></td>
+
 
 		</tr>
 		<%

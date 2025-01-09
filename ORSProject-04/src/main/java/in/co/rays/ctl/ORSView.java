@@ -6,6 +6,8 @@ public interface ORSView {
 
 	public String PAGE_FOLDER = "/jsp";
 
+	public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
+
 	public String USER_REGISTRATION_VIEW = PAGE_FOLDER + "/UserRegistrationView.jsp";
 	public String LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";
 	public String WELCOME_VIEW = PAGE_FOLDER + "/Welcome.jsp";
@@ -31,6 +33,8 @@ public interface ORSView {
 	public String STOCKPURCHASE_LIST_VIEW = PAGE_FOLDER + "/StockPurchaseListView.jsp";
 	public String FOLLOWUP_VIEW = PAGE_FOLDER + "/FollowUpView.jsp";
 	public String FOLLOWUP_LIST_VIEW = PAGE_FOLDER + "/FollowUpListView.jsp";
+	public String PURCHASEORDER_VIEW = PAGE_FOLDER + "/PurchaseOrderView.jsp";
+	public String PURCHASEORDER_LIST_VIEW = PAGE_FOLDER + "/PurchaseOrderListView.jsp";
 
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
@@ -58,4 +62,6 @@ public interface ORSView {
 	public String STOCKPURCHASE_LIST_CTL = APP_CONTEXT + "/ctl/StockPurchaseListCtl";
 	public String FOLLOWUP_CTL = APP_CONTEXT + "/ctl/FollowUpCtl";
 	public String FOLLOWUP_LIST_CTL = APP_CONTEXT + "/ctl/FollowUpListCtl";
+	public String PURCHASEORDER_CTL = APP_CONTEXT + "/ctl/PurchaseOrderCtl";
+	public String PURCHASEORDER_LIST_CTL = APP_CONTEXT + "/ctl/PurchaseOrderListCtl";
 }
