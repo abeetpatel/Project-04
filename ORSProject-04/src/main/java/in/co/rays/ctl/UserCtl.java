@@ -230,6 +230,7 @@ public class UserCtl extends BaseCtl {
 		else if (OP_CANCEL.equalsIgnoreCase(op)) {
 
 			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+			return;
 
 		}
 
