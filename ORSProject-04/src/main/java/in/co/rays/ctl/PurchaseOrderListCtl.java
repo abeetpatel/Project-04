@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
 import in.co.rays.bean.PurchaseOrderBean;
+import in.co.rays.bean.UserBean;
 import in.co.rays.exception.ApplicationException;
 import in.co.rays.model.PurchaseOrderModel;
+import in.co.rays.model.UserModel;
 import in.co.rays.util.DataUtility;
 import in.co.rays.util.PropertyReader;
 import in.co.rays.util.ServletUtility;
@@ -39,6 +41,7 @@ public class PurchaseOrderListCtl extends BaseCtl {
 		PurchaseOrderBean bean = new PurchaseOrderBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
+		bean.setProduct(DataUtility.getString(request.getParameter("product")));
 
 		return bean;
 
@@ -55,11 +58,13 @@ public class PurchaseOrderListCtl extends BaseCtl {
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
 		PurchaseOrderBean bean = (PurchaseOrderBean) populateBean(request);
+
 		PurchaseOrderModel model = new PurchaseOrderModel();
 
 		try {
 			list = model.search(bean, pageNo, pageSize);
 			next = model.search(bean, pageNo + 1, pageSize);
+
 			request.setAttribute("nextListSize", next.size());
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
@@ -84,24 +89,20 @@ public class PurchaseOrderListCtl extends BaseCtl {
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
 		PurchaseOrderBean bean = (PurchaseOrderBean) populateBean(request);
-		PurchaseOrderModel model = new PurchaseOrderModel();
-
-		String op = request.getParameter("operation");
+		String op = DataUtility.getString(request.getParameter("operation"));
 		String[] ids = request.getParameterValues("ids");
 
-		try {
+		PurchaseOrderModel model = new PurchaseOrderModel();
 
+		try {
 			if (OP_SEARCH.equalsIgnoreCase(op)) {
 				pageNo = 1;
 			} else if (OP_NEXT.equalsIgnoreCase(op)) {
 				pageNo++;
-			} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 0) {
+			} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
 				pageNo--;
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.PURCHASEORDER_CTL, request, response);
-				return;
-			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.PURCHASEORDER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.USER_CTL, request, response);
 				return;
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
@@ -109,20 +110,22 @@ public class PurchaseOrderListCtl extends BaseCtl {
 					for (String id : ids) {
 						model.delete(DataUtility.getLong(id));
 					}
-					ServletUtility.setSuccessMessage("Data Deleted Successfully", request);
+					ServletUtility.setSuccessMessage("Data is deleted successfully", request);
 				} else {
-					ServletUtility.setErrorMessage("Select at Least One record", request);
+					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
+			} else if (OP_RESET.equalsIgnoreCase(op) || OP_BACK.equalsIgnoreCase(op)) {
+				ServletUtility.redirect(ORSView.PURCHASEORDER_LIST_CTL, request, response);
+				return;
 			}
 
 			ServletUtility.setBean(bean, request);
+
 			list = model.search(bean, pageNo, pageSize);
 			next = model.search(bean, pageNo + 1, pageSize);
 
-			if (!OP_DELETE.equalsIgnoreCase(op) && (list == null || list.size() > 0)) {
-
-				ServletUtility.setErrorMessage("No Record Found", request);
-
+			if (!OP_DELETE.equalsIgnoreCase(op) && (list == null || list.size() == 0)) {
+				ServletUtility.setErrorMessage("No record found", request);
 			}
 
 			request.setAttribute("nextListSize", next.size());
@@ -131,9 +134,9 @@ public class PurchaseOrderListCtl extends BaseCtl {
 			ServletUtility.setPageSize(pageSize, request);
 			ServletUtility.forward(getView(), request, response);
 
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	@Override

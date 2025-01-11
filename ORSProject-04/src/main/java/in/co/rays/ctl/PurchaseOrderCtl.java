@@ -25,30 +25,30 @@ public class PurchaseOrderCtl extends BaseCtl {
 		boolean isValid = true;
 
 		// validation for totalQuantity
-		if (DataValidator.isNull("totalQuantity")) {
-			request.setAttribute("totalQuantity", PropertyReader.getValue("error.required", "totalQuantity"));
+		if (DataValidator.isNull(request.getParameter("totalQuantity"))) {
+			request.setAttribute("totalQuantity", PropertyReader.getValue("error.require", "Total Quantity"));
 			isValid = false;
 		}
 
 		// validation for product
-		if (DataValidator.isNull("product")) {
-			request.setAttribute("product", PropertyReader.getValue("error.required", "product"));
+		if (DataValidator.isNull(request.getParameter("product"))) {
+			request.setAttribute("product", PropertyReader.getValue("error.require", "Product"));
 			isValid = false;
 		}
 
 		// validation for orderDate
-		if (DataValidator.isNull("orderDate")) {
-			request.setAttribute("orderDate", PropertyReader.getValue("error.required", "orderDate"));
+		if (DataValidator.isNull(request.getParameter("orderDate"))) {
+			request.setAttribute("orderDate", PropertyReader.getValue("error.require", "Order Date"));
 			isValid = false;
 		}
-		if (!DataValidator.isDate("orderDate")) {
-			request.setAttribute("orderDate", PropertyReader.getValue("error.date", "orderDate"));
+		if (!DataValidator.isDate(request.getParameter("orderDate"))) {
+			request.setAttribute("orderDate", PropertyReader.getValue("error.date", "Order Date"));
 			isValid = false;
 		}
 
 		// validation for totalCost
-		if (DataValidator.isNull("totalCost")) {
-			request.setAttribute("totalCost", PropertyReader.getValue("error.required", "totalCost"));
+		if (DataValidator.isNull(request.getParameter("totalCost"))) {
+			request.setAttribute("totalCost", PropertyReader.getValue("error.require", "Total Cost"));
 			isValid = false;
 		}
 
@@ -77,7 +77,7 @@ public class PurchaseOrderCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getStringData(request.getParameter("operation"));
+		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		if (id > 0) {
@@ -101,36 +101,40 @@ public class PurchaseOrderCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String op = DataUtility.getStringData(request.getParameter("operation"));
+		String op = DataUtility.getString(request.getParameter("operation"));
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		PurchaseOrderModel model = new PurchaseOrderModel();
 
 		PurchaseOrderBean bean = (PurchaseOrderBean) populateBean(request);
 
-		if (OP_SAVE.equalsIgnoreCase("op")) {
+		if (OP_SAVE.equalsIgnoreCase(op)) {
 
 			try {
 				model.add(bean);
-				ServletUtility.setSuccessMessage("data added successfully", request);
+				ServletUtility.setSuccessMessage("Data Added Successfully", request);
 				ServletUtility.forward(getView(), request, response);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
 
-		} else if (OP_RESET.equalsIgnoreCase("op")) {
+		} else if (OP_RESET.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.PURCHASEORDER_CTL, request, response);
 			return;
-		} else if (OP_UPDATE.equalsIgnoreCase("op")) {
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			bean = (PurchaseOrderBean) populateBean(request);
 			try {
-				model.update(bean);
+				if (id > 0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Data Updated Successfully", request);
 				ServletUtility.forward(getView(), request, response);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
 
-		} else if (OP_CANCEL.equalsIgnoreCase("op")) {
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.PURCHASEORDER_LIST_CTL, request, response);
 			return;
 		}

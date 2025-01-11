@@ -60,20 +60,22 @@
 				href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a> | <a
 				href="<%=ORSView.STUDENT_CTL%>">Add Student</a> |<a
 				href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</a> | <a
-				href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a> |<br> <a
-				href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a> | <a
-				href="<%=ORSView.COURSE_CTL%>">Add Course</a> | <a
+				href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a> | <a
+				href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a> |<br>
+				<a href="<%=ORSView.COURSE_CTL%>">Add Course</a> | <a
 				href="<%=ORSView.COURSE_LIST_CTL%>">Course List</a> | <a
 				href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a> | <a
 				href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a> | <a
 				href="<%=ORSView.TIMETABLE_CTL%>">Add Timetable</a> | <a
-				href="<%=ORSView.TIMETABLE_LIST_CTL%>">Timetable List</a> |<br>
-				<a href="<%=ORSView.FACULTY_CTL%>">Add Faculty</a> | <a
-				href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a> | <a
+				href="<%=ORSView.TIMETABLE_LIST_CTL%>">Timetable List</a> | <a
+				href="<%=ORSView.FACULTY_CTL%>">Add Faculty</a> | <a
+				href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a> |<br> <a
 				href="<%=ORSView.STOCKPURCHASE_CTL%>">Add Stock Purchase</a> | <a
 				href="<%=ORSView.STOCKPURCHASE_LIST_CTL%>">Stock Purchase List</a> |
 				<a href="<%=ORSView.FOLLOWUP_CTL%>">Add Follow Up Data</a> | <a
-				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a> | <a
+				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a> | | <a
+				href="<%=ORSView.PURCHASEORDER_CTL%>">Add Purchase Order</a> | <a
+				href="<%=ORSView.PURCHASEORDER_LIST_CTL%>">Purchase Order List</a> | <a
 				href="<%=ORSView.JAVA_DOC_VIEW%>" target="blank">Java Doc</a></td>
 
 

@@ -19,8 +19,6 @@ public class PurchaseOrderModel {
 
 		long pk = 0;
 
-		PurchaseOrderBean bean = null;
-
 		Connection conn = null;
 
 		try {
@@ -29,13 +27,9 @@ public class PurchaseOrderModel {
 
 			PreparedStatement pstmt = conn.prepareStatement("select max(id) from st_purchase_order");
 
-			pstmt.setLong(1, bean.getId());
-
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
-				bean = new PurchaseOrderBean();
 
 				pk = rs.getLong(1);
 
