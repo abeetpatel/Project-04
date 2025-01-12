@@ -39,9 +39,6 @@ public class RoleCtl extends BaseCtl {
 		if (DataValidator.isNull(request.getParameter("description"))) {
 			request.setAttribute("description", PropertyReader.getValue("error.require", "description"));
 			isValid = false;
-		} else if (!DataValidator.isName(request.getParameter("description"))) {
-			request.setAttribute("description", "Invalid description");
-			isValid = false;
 		}
 
 		return isValid;

@@ -9,28 +9,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.bean.BaseBean;
-import in.co.rays.bean.PurchaseOrderBean;
-import in.co.rays.bean.UserBean;
+import in.co.rays.bean.ClientBean;
 import in.co.rays.exception.ApplicationException;
-import in.co.rays.model.PurchaseOrderModel;
-import in.co.rays.model.UserModel;
+import in.co.rays.model.ClientModel;
 import in.co.rays.util.DataUtility;
 import in.co.rays.util.PropertyReader;
 import in.co.rays.util.ServletUtility;
 
-@WebServlet(name = "/PurchaseOrderListCtl", urlPatterns = { "/ctl/PurchaseOrderListCtl" })
-public class PurchaseOrderListCtl extends BaseCtl {
+@WebServlet(name = "/ClientListCtl", urlPatterns = { "/ctl/ClientListCtl" })
+public class ClientListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
 
-		PurchaseOrderModel model = new PurchaseOrderModel();
-
+		ClientModel model = new ClientModel();
 		try {
-			List productList = model.list();
-			request.setAttribute("productList", productList);
+			List clientList = model.list();
+			request.setAttribute("clientList", clientList);
 		} catch (Exception e) {
+
 			e.printStackTrace();
+
 		}
 
 	}
@@ -38,9 +37,10 @@ public class PurchaseOrderListCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		PurchaseOrderBean bean = new PurchaseOrderBean();
+		ClientBean bean = new ClientBean();
 
-		bean.setId(DataUtility.getLong(request.getParameter("productId")));
+		bean.setId(DataUtility.getLong(request.getParameter("clientId")));
+		bean.setFullName(DataUtility.getString(request.getParameter("fullName")));
 
 		return bean;
 
@@ -50,15 +50,15 @@ public class PurchaseOrderListCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<PurchaseOrderBean> list = null;
-		List<PurchaseOrderBean> next = null;
+		List<ClientBean> list = null;
+		List<ClientBean> next = null;
 
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		PurchaseOrderBean bean = (PurchaseOrderBean) populateBean(request);
+		ClientBean bean = (ClientBean) populateBean(request);
 
-		PurchaseOrderModel model = new PurchaseOrderModel();
+		ClientModel model = new ClientModel();
 
 		try {
 			list = model.search(bean, pageNo, pageSize);
@@ -73,25 +73,27 @@ public class PurchaseOrderListCtl extends BaseCtl {
 			e.printStackTrace();
 		}
 
+		ServletUtility.forward(getView(), request, response);
+
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		List<PurchaseOrderBean> list = null;
-		List<PurchaseOrderBean> next = null;
+		List<ClientBean> list = null;
+		List<ClientBean> next = null;
 		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
 		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
 
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		PurchaseOrderBean bean = (PurchaseOrderBean) populateBean(request);
+		ClientBean bean = (ClientBean) populateBean(request);
 		String op = DataUtility.getString(request.getParameter("operation"));
 		String[] ids = request.getParameterValues("ids");
 
-		PurchaseOrderModel model = new PurchaseOrderModel();
+		ClientModel model = new ClientModel();
 
 		try {
 			if (OP_SEARCH.equalsIgnoreCase(op)) {
@@ -101,7 +103,7 @@ public class PurchaseOrderListCtl extends BaseCtl {
 			} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
 				pageNo--;
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_CTL, request, response);
+				ServletUtility.redirect(ORSView.CLIENT_CTL, request, response);
 				return;
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
@@ -114,7 +116,7 @@ public class PurchaseOrderListCtl extends BaseCtl {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
 			} else if (OP_RESET.equalsIgnoreCase(op) || OP_BACK.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.PURCHASEORDER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.CLIENT_LIST_CTL, request, response);
 				return;
 			}
 
@@ -136,11 +138,12 @@ public class PurchaseOrderListCtl extends BaseCtl {
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
 	protected String getView() {
-		return ORSView.PURCHASEORDER_LIST_VIEW;
+		return ORSView.CLIENT_LIST_VIEW;
 	}
 
 }

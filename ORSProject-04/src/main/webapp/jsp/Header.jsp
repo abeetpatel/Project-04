@@ -73,9 +73,11 @@
 				href="<%=ORSView.STOCKPURCHASE_CTL%>">Add Stock Purchase</a> | <a
 				href="<%=ORSView.STOCKPURCHASE_LIST_CTL%>">Stock Purchase List</a> |
 				<a href="<%=ORSView.FOLLOWUP_CTL%>">Add Follow Up Data</a> | <a
-				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a> | | <a
+				href="<%=ORSView.FOLLOWUP_LIST_CTL%>">Follow Up List</a> | <a
 				href="<%=ORSView.PURCHASEORDER_CTL%>">Add Purchase Order</a> | <a
-				href="<%=ORSView.PURCHASEORDER_LIST_CTL%>">Purchase Order List</a> | <a
+				href="<%=ORSView.PURCHASEORDER_LIST_CTL%>">Purchase Order List</a> |
+				<a href="<%=ORSView.CLIENT_CTL%>">Add Client</a> | <a
+				href="<%=ORSView.CLIENT_LIST_CTL%>">Client List</a> | <a
 				href="<%=ORSView.JAVA_DOC_VIEW%>" target="blank">Java Doc</a></td>
 
 
