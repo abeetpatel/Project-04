@@ -55,9 +55,7 @@
 
 			<table style="width: 100%">
 				<tr>
-					<td align="center"><label><b>Product :</b></label><input
-						type="text" name="product"
-						value="<%=DataUtility.getStringData(bean.getProduct())%>">
+					<td align="center"><label><b>Product :</b></label><%=HTMLUtility.getList("id", DataUtility.getStringData(bean.getId()), productList)%>
 						<input type="submit" name="operation"
 						value="<%=PurchaseOrderListCtl.OP_SEARCH%>"> <input
 						type="submit" name="operation"

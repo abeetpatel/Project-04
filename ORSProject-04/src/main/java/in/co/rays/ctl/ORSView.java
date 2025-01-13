@@ -37,6 +37,8 @@ public interface ORSView {
 	public String PURCHASEORDER_LIST_VIEW = PAGE_FOLDER + "/PurchaseOrderListView.jsp";
 	public String CLIENT_VIEW = PAGE_FOLDER + "/ClientView.jsp";
 	public String CLIENT_LIST_VIEW = PAGE_FOLDER + "/ClientListView.jsp";
+	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
+	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
 
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
@@ -68,4 +70,6 @@ public interface ORSView {
 	public String PURCHASEORDER_LIST_CTL = APP_CONTEXT + "/ctl/PurchaseOrderListCtl";
 	public String CLIENT_CTL = APP_CONTEXT + "/ctl/ClientCtl";
 	public String CLIENT_LIST_CTL = APP_CONTEXT + "/ctl/ClientListCtl";
+	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
+	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
 }

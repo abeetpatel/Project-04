@@ -62,8 +62,8 @@
 				<!-- Order Date -->
 				<tr>
 					<th align="left">Order Date <span style="color: red">*</span></th>
-					<td><input style="width: 97%" type="date" name="orderDate"
-						placeholder="Select Order Date" /></td>
+					<td><input style="width: 97%" type="text" id="sdate"
+						name="orderDate" placeholder="Select Order Date" /></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("orderDate", request)%></font></td>
 
 				</tr>

@@ -53,10 +53,10 @@
 				<!-- Appointment Date -->
 				<tr>
 					<th align="left">Appointment Date <span style="color: red">*</span></th>
-					<td><input style="width: 97%" type="date"
-						name="appointmentDate" placeholder="Enter Appointment Date "
-						value="<%=DataUtility.getStringData(bean.getAppointmentDate())%>"></td>
+					<td><input style="width: 97%" type="text" id="sdate"
+						name="appointmentDate" placeholder="Select Appointment Date" /></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("appointmentDate", request)%></font></td>
+
 				</tr>
 
 				<!-- Phone -->

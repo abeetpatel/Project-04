@@ -226,7 +226,7 @@ public class PurchaseOrderModel {
 
 			if (bean.getId() > 0) {
 
-				sql.append(" and id is like '" + bean.getId() + "%'");
+				sql.append(" and id = " + bean.getId());
 
 			}
 

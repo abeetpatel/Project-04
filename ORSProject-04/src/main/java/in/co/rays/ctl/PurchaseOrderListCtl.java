@@ -40,7 +40,7 @@ public class PurchaseOrderListCtl extends BaseCtl {
 
 		PurchaseOrderBean bean = new PurchaseOrderBean();
 
-		bean.setId(DataUtility.getLong(request.getParameter("productId")));
+		bean.setId(DataUtility.getLong(request.getParameter("id")));
 
 		return bean;
 
