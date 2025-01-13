@@ -39,6 +39,9 @@ public class CustomerListCtl extends BaseCtl {
 		CustomerBean bean = new CustomerBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
+		bean.setLocation(DataUtility.getString(request.getParameter("location")));
+		bean.setContactNumber(DataUtility.getString(request.getParameter("contactNumber")));
+		bean.setImportance(DataUtility.getString(request.getParameter("importance")));
 
 		return bean;
 

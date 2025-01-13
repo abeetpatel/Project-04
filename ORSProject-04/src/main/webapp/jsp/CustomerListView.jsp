@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.bean.CustomerBean"%>
 <%@page import="in.co.rays.ctl.CustomerListCtl"%>
 <%@page import="in.co.rays.util.HTMLUtility"%>
@@ -55,9 +56,21 @@
 
 			<table style="width: 100%">
 				<tr>
-					<td align="center"><label><b>Customer :</b></label> <%=HTMLUtility.getList("Id", DataUtility.getStringData(bean.getId()), customerList)%>
 
-						<input type="submit" name="operation"
+					<td align="center"><label><b>Customer :</b></label> <%=HTMLUtility.getList("id", DataUtility.getStringData(bean.getId()), customerList)%>
+						<label><b>Location :</b></label> <input type="text"
+						name="location"
+						value="<%=ServletUtility.getParameter("location", request)%>">
+						<label><b>Contact Number :</b></label> <input type="text"
+						name="contactNumber"
+						value="<%=ServletUtility.getParameter("contactNumber", request)%>">
+						<label><b>Importance :</b></label> <%
+ 	HashMap<String, String> map = new HashMap<>();
+ 		map.put("high", "High");
+ 		map.put("medium", "Medium");
+ 		map.put("low", "Low");
+ %> <%=HTMLUtility.getList("importance", bean.getImportance(), map)%> <input
+						type="submit" name="operation"
 						value="<%=CustomerListCtl.OP_SEARCH%>"> <input
 						type="submit" name="operation"
 						value="<%=CustomerListCtl.OP_RESET%>"></td>

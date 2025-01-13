@@ -229,6 +229,11 @@ public class CustomerModel {
 		StringBuffer sql = new StringBuffer("select * from st_customer where 1 = 1");
 
 		if (bean != null) {
+			if (bean.getId() > 0) {
+
+				sql.append(" and id = " + bean.getId());
+
+			}
 
 			if (bean.getClientName() != null && bean.getClientName().length() > 0) {
 
