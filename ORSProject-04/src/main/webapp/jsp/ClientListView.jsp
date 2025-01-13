@@ -43,8 +43,6 @@
 				int index = ((pageNo - 1) * pageSize) + 1;
 				int nextPageSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-				List clientList = (List) request.getAttribute("clientList");
-
 				List list = ServletUtility.getList(request);
 				Iterator it = list.iterator();
 				if (list.size() != 0) {
@@ -55,9 +53,8 @@
 
 			<table style="width: 100%">
 				<tr>
-					<td align="center"><label><b>Full Name :</b></label> <input
-						type="text" name="fullName" placeholder=" Enter Full Name "
-						value="<%=ServletUtility.getParameter("fullName", request)%>">
+					<td align="center"><label><b>Client :</b></label><input type="text" name="fullName" placeholder="Enter Client Full Name"
+					value="<%=ServletUtility.getParameter("fullName", request) %>">
 
 						<input type="submit" name="operation"
 						value="<%=ClientListCtl.OP_SEARCH%>"> <input type="submit"

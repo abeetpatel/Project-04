@@ -39,7 +39,6 @@ public class ClientListCtl extends BaseCtl {
 
 		ClientBean bean = new ClientBean();
 
-		bean.setId(DataUtility.getLong(request.getParameter("clientId")));
 		bean.setFullName(DataUtility.getString(request.getParameter("fullName")));
 
 		return bean;

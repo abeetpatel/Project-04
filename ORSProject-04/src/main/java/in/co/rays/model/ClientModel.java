@@ -160,7 +160,7 @@ public class ClientModel {
 		try {
 			conn = JDBCDataSource.getConnection();
 
-			PreparedStatement pstmt = conn.prepareStatement("delete from st_client where id = ?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_client where id = ?");
 
 			pstmt.setLong(1, pk);
 
@@ -187,7 +187,7 @@ public class ClientModel {
 
 	}
 
-	public List list() throws ApplicationException {
+	public List list() throws Exception {
 		return search(null, 0, 0);
 	}
 

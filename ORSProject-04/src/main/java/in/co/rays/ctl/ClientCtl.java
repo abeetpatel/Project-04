@@ -134,6 +134,7 @@ public class ClientCtl extends BaseCtl {
 
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 			bean = (ClientBean) populateBean(request);
+			System.out.println("");
 			try {
 				if (id > 0) {
 					model.update(bean);
@@ -145,6 +146,11 @@ public class ClientCtl extends BaseCtl {
 				e.printStackTrace();
 				return;
 			}
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+
+			ServletUtility.redirect(ORSView.CLIENT_LIST_CTL, request, response);
+
+			return;
 		}
 
 	}
