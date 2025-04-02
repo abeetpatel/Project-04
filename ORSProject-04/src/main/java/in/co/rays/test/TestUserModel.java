@@ -36,11 +36,11 @@ public class TestUserModel {
 		int pageNo = 1;
 		int pageSize = 12;
 
-		// bean.setFirstName("Ritu");
+		 bean.setFirstName("Ritu");
 		// bean.setLastName("Gupta");
 		// bean.setLogin("rahulchaudhary@gmail.com");
 		// bean.setPassword("password123");
-		 bean.setDob(sdf.parse("2000-01-01"));
+		// bean.setDob(sdf.parse("2000-01-01"));
 		// bean.setMobileNo("6515485248");
 		// bean.setRoleId(12);
 		// bean.setGender("male");

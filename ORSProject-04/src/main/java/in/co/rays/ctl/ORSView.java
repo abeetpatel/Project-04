@@ -39,6 +39,10 @@ public interface ORSView {
 	public String CLIENT_LIST_VIEW = PAGE_FOLDER + "/ClientListView.jsp";
 	public String CUSTOMER_VIEW = PAGE_FOLDER + "/CustomerView.jsp";
 	public String CUSTOMER_LIST_VIEW = PAGE_FOLDER + "/CustomerListView.jsp";
+	public String STAFFMEMBER_VIEW = PAGE_FOLDER + "/StaffMemberView.jsp";
+	public String STAFFMEMBER_LIST_VIEW = PAGE_FOLDER + "/StaffMemberListView.jsp";
+	public String POSITION_VIEW = PAGE_FOLDER + "/PositionView.jsp";
+	public String POSITION_LIST_VIEW = PAGE_FOLDER + "/PositionListView.jsp";
 
 	public String USER_REGISTRATION_CTL = APP_CONTEXT + "/UserRegistrationCtl";
 	public String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";
@@ -72,4 +76,8 @@ public interface ORSView {
 	public String CLIENT_LIST_CTL = APP_CONTEXT + "/ctl/ClientListCtl";
 	public String CUSTOMER_CTL = APP_CONTEXT + "/ctl/CustomerCtl";
 	public String CUSTOMER_LIST_CTL = APP_CONTEXT + "/ctl/CustomerListCtl";
+	public String STAFFMEMBER_CTL = APP_CONTEXT + "/ctl/StaffMemberCtl";
+	public String STAFFMEMBER_LIST_CTL = APP_CONTEXT + "/ctl/StaffMemberListCtl";
+	public String POSITION_CTL = APP_CONTEXT + "/ctl/PositionCtl";
+	public String POSITION_LIST_CTL = APP_CONTEXT + "/ctl/PositionListCtl";
 }
