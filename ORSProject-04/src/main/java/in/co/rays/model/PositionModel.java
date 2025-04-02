@@ -80,20 +80,17 @@ public class PositionModel {
 			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_position set designation = ?, openingDate = ?, requiredExperince = ?, condition = ?  where identifier = ?");
+					"update st_position set designation = ?, openingDate = ?, requiredExperince = ?, conditionn = ?  where identifier = ?");
 
 			
 			
 			pstmt.setString(1, bean.getDesignation());
-			System.out.println("ayayayayayyay");
 			pstmt.setDate(2, new Date(bean.getOpeningDate().getTime()));
 			pstmt.setString(3, bean.getRequiredExperince());
 			pstmt.setString(4, bean.getCondition());
 			pstmt.setLong(5, bean.getIdentifier());
-			System.out.println("ayayayayayyay3333");
 
 			int i = pstmt.executeUpdate();
-			System.out.println("ayayayayayyay111");
 			conn.commit();
 
 			System.out.println("data updated successfully => " + i);
@@ -198,9 +195,9 @@ public class PositionModel {
 
 		bean.setDesignation("demo0");
 		bean.setOpeningDate(sdf.parse("2025-04-02"));
-		bean.setRequiredExperince(" 0yr");
+		bean.setRequiredExperince("0yr");
 		bean.setCondition("demo0");
-		bean.setIdentifier(4);
+		bean.setIdentifier(1);
 
 		model.update(bean);
 
