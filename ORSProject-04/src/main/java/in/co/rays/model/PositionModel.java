@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import com.sun.javadoc.ThrowsTag;
 
 import in.co.rays.bean.PositionBean;
 import in.co.rays.bean.UserBean;
@@ -82,8 +86,6 @@ public class PositionModel {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"update st_position set designation = ?, openingDate = ?, requiredExperince = ?, conditionn = ?  where identifier = ?");
 
-			
-			
 			pstmt.setString(1, bean.getDesignation());
 			pstmt.setDate(2, new Date(bean.getOpeningDate().getTime()));
 			pstmt.setString(3, bean.getRequiredExperince());
@@ -138,8 +140,9 @@ public class PositionModel {
 		}
 	}
 
-	public PositionBean finedByPk(long id) {
+	public PositionBean finedByPk(long id) throws ApplicationException{
 
+		PositionBean bean = new PositionBean();
 		Connection conn = null;
 		try {
 
@@ -149,33 +152,142 @@ public class PositionModel {
 
 			ResultSet rs = pstmt.executeQuery();
 
+			while (rs.next()) {
+
+				bean.setIdentifier(rs.getLong(1));
+				bean.setDesignation(rs.getString(2));
+				bean.setOpeningDate(rs.getDate(3));
+				bean.setRequiredExperince(rs.getString(4));
+				bean.setCondition(rs.getString(5));
+
+			}
+
 		} catch (Exception e) {
+			throw new ApplicationException("Exception: Exception in finedByPk " + e);
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
-		return null;
+		return bean;
 	}
 
-	public List list() {
+	public List list() throws ApplicationException {
 		return search(null, 0, 0);
 
 	}
 
-	public List list(PositionBean bean, int pageNo, int pageSize) {
+	public List list(PositionBean bean, int pageNo, int pageSize) throws ApplicationException {
 		return search(null, 0, 0);
 
 	}
 
-	public List search(PositionBean bean, int pageNo, int pageSize) {
-		return null;
+	public List search(PositionBean bean, int pageNo, int pageSize) throws ApplicationException {
+
+		Connection conn = null;
+
+		List list = new ArrayList();
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+
+			StringBuffer sql = new StringBuffer("select * from st_position where 1 = 1 ");
+
+			if (bean != null) {
+
+				if (bean.getDesignation() != null && bean.getDesignation().length() > 0) {
+
+					sql.append("and designation like '" + bean.getDesignation() + "%'");
+
+					// sql.append("and designation = " + bean.getDesignation());
+
+				}
+
+			}
+			if (pageNo > 0) {
+
+				pageNo = (pageNo - 1) * pageSize;
+
+			}
+
+			System.out.println("sql ====>>> " + sql.toString());
+
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				bean = new PositionBean();
+
+				bean.setIdentifier(rs.getLong(1));
+				bean.setDesignation(rs.getString(2));
+				bean.setOpeningDate(rs.getDate(3));
+				bean.setRequiredExperince(rs.getString(4));
+				bean.setCondition(rs.getString(5));
+
+				list.add(bean);
+
+			}
+
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception search method => " + e);
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return list;
 
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		// testadd();
-		testUpdate();
+		// testAdd();
+		// testUpdate();
 		// testDelete();
+		// testFinedByPk();
+		testSearch();
+
+	}
+
+	private static void testSearch() throws ApplicationException {
+
+		int pageNo = 1;
+
+		int pageSize = 10;
+
+		PositionModel model = new PositionModel();
+
+		PositionBean bean = new PositionBean();
+
+		List list = model.search(bean, pageNo, pageSize);
+
+		Iterator it = list.iterator();
+
+		while (it.hasNext()) {
+
+			bean = (PositionBean) it.next();
+
+			System.out.println("designation => " + bean.getDesignation());
+			System.out.println("openingDate => " + bean.getOpeningDate());
+			System.out.println("requiredExperince => " + bean.getRequiredExperince());
+			System.out.println("condition => " + bean.getCondition());
+
+		}
+
+	}
+
+	private static void testFinedByPk() throws ApplicationException {
+
+		long id = 1;
+
+		PositionModel model = new PositionModel();
+
+		PositionBean bean = model.finedByPk(id);
+
+		System.out.println("designation => " + bean.getDesignation());
+		System.out.println("openingDate => " + bean.getOpeningDate());
+		System.out.println("requiredExperince => " + bean.getRequiredExperince());
+		System.out.println("condition => " + bean.getCondition());
 
 	}
 
@@ -183,7 +295,7 @@ public class PositionModel {
 
 		PositionModel model = new PositionModel();
 
-		model.delete(0);
+		model.delete(3);
 
 	}
 
@@ -203,7 +315,7 @@ public class PositionModel {
 
 	}
 
-	private static void testadd() throws Exception {
+	private static void testAdd() throws Exception {
 
 		PositionBean bean = new PositionBean();
 		PositionModel model = new PositionModel();
